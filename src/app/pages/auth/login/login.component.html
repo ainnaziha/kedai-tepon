@@ -5,16 +5,6 @@
     <div class="col-lg-4 d-flex align-items-center">
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
-          <div class="text-center">
-            <a [routerLink]="['/dashboard']">
-              <img
-                src="/assets/images/google-icon.svg"
-                class="align-middle m-2"
-                alt="logo"
-              />
-            </a>
-          </div>
-
           <div class="row m-t-24 custom-row">
             <div class="col-12 col-sm-12">
               <button mat-stroked-button class="w-100">
@@ -48,24 +38,16 @@
               <input matInput type="password" />
             </mat-form-field>
 
-            <div class="d-flex align-items-center m-b-12">
-              <mat-checkbox color="primary">Remember this Device</mat-checkbox>
-              <a
-                [routerLink]="['/']"
-                class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14"
-                >Forgot Password ?</a
-              >
-            </div>
-            <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
+            <a [routerLink]="['/']" mat-flat-button color="accent" class="w-100">
               Sign In
             </a>
             <!-- input -->
           </form>
           <span class="d-block f-w-500 text-center m-t-24"
-            >New to Modernize?
+            >New to Kedai?
             <a
               [routerLink]="['/auth/register']"
-              class="text-decoration-none text-primary f-w-500 f-s-14"
+              class="text-decoration-none text-secondary f-w-500 f-s-14"
             >
               Create an account</a
             >

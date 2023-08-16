@@ -1,14 +1,4 @@
-<mat-toolbar class="topbar">
-  <!-- Mobile Menu -->
-  <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">
-    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
-  </button>
-  <!-- --------------------------------------------------------------- -->
-
-  <!-- --------------------------------------------------------------- -->
-  <!-- Notification Dropdown -->
-  <!-- --------------------------------------------------------------- -->
-
+<mat-toolbar class="topbar bg-primary">  
   <button mat-icon-button aria-label="Notifications">
     <i-tabler
       class="d-flex"
@@ -18,7 +8,16 @@
     ></i-tabler>
   </button>
 
-  <span class="flex-1-auto"></span>
+  <span class="flex-1-auto text-center">
+    <a
+    aria-label="Home"
+  >
+    <img
+      src="/assets/images/logo.png"
+      height="50px"
+    />
+  </a>
+  </span>
 
   <!-- --------------------------------------------------------------- -->
   <!-- profile Dropdown -->
