@@ -14,6 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { FullComponent } from './layout/full/full.component';
 
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +34,11 @@ import { FullComponent } from './layout/full/full.component';
     MatInputModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFirestoreModule,
+    AngularFireModule,
   ],
   exports: [TablerIconsModule],
   providers: [],

@@ -7,7 +7,7 @@
         <mat-card-content class="p-32">
           <div class="row m-t-24 custom-row">
             <div class="col-12 col-sm-12">
-              <button mat-stroked-button class="w-100">
+              <button mat-stroked-button class="w-100" (click)="authService.GoogleAuth()">
                 <div class="d-flex align-items-center">
                   <img
                     src="/assets/images/google-icon.svg"
@@ -23,24 +23,24 @@
 
           <div class="or-border m-t-30">or sign in with</div>
 
-          <form class="m-t-30">
+          <form class="m-t-30" ngNativeValidate>
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
-              >Username</mat-label
+              >Email</mat-label
             >
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
+              <input matInput type="email" [(ngModel)]="userEmail" name="user-name" required />
             </mat-form-field>
             <!-- password -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
               >Password</mat-label
             >
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" />
+              <input matInput type="password" [(ngModel)]="userPassword" name="user-password" required />
             </mat-form-field>
 
-            <a [routerLink]="['/']" mat-flat-button color="accent" class="w-100">
+            <button mat-flat-button color="accent" class="w-100" type="submit" (click)="signIn()" >
               Sign In
-            </a>
+            </button>
             <!-- input -->
           </form>
           <span class="d-block f-w-500 text-center m-t-24"
