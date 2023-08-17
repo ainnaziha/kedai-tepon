@@ -21,7 +21,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { GalleryModule } from 'ng-gallery';
 import { HomeComponent } from './pages/home/home.component';
-
+import { ProductCardComponent } from './components/product/product-card.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { HomeComponent } from './pages/home/home.component';
     HeaderComponent,
     MainHeaderComponent,
     HomeComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
