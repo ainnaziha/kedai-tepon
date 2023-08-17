@@ -12,9 +12,16 @@
         </div>  
     </span>
 
-    <button mat-icon-button> 
-        <mat-icon>add_shopping_cart</mat-icon>
-    </button>
+    <div>
+        <button mat-icon-button> 
+            <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+        <button mat-icon-button (click)="redirectToLogin()"> 
+            <mat-icon>login</mat-icon>
+        </button>
+
+    </div>
+
     
   </mat-toolbar>
   
