@@ -19,7 +19,9 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
-import { BannersComponent } from './layout/banners/banners.component';
+import { BannerComponent } from './components/banner/banner.component';
+import { GalleryModule } from 'ng-gallery';
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { BannersComponent } from './layout/banners/banners.component';
     BodyComponent,
     HeaderComponent,
     MainHeaderComponent,
-    BannersComponent
+    BannerComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { BannersComponent } from './layout/banners/banners.component';
     AngularFirestoreModule,
     AngularFirestoreModule,
     AngularFireModule,
+    GalleryModule
   ],
   exports: [TablerIconsModule],
   providers: [],
