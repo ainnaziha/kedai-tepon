@@ -19,13 +19,16 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
+import { BannersComponent } from './layout/banners/banners.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     BodyComponent,
     HeaderComponent,
-    MainHeaderComponent
+    MainHeaderComponent,
+    BannersComponent
   ],
   imports: [
     BrowserModule,
