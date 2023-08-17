@@ -5,10 +5,12 @@
   dir="ltr"
 >
   <mat-sidenav-content class="contentWrapper">
-    <app-header
-      [showToggle]="!isOver"
-      (toggleCollapsed)="toggleCollapsed()"
-    ></app-header>
+    <ng-container *ngIf="isMainHeader; else appHeader">
+      <app-main-header></app-main-header>
+    </ng-container>
+    <ng-template #appHeader>
+      <app-header [showToggle]="true" (toggleCollapsed)="toggleCollapsed()"></app-header>
+    </ng-template>
 
     <main class="pageWrapper">
       <router-outlet></router-outlet>

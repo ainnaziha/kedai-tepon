@@ -39,7 +39,7 @@ export class AuthService {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['/home']);
           }
         });
       })
@@ -53,6 +53,11 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.SetUserData(result.user);
+        this.afAuth.authState.subscribe((user) => {
+          if (user) {
+            this.router.navigate(['/home']);
+          }
+        });
       })
       .catch((error) => {
         window.alert(error.message);
@@ -92,7 +97,7 @@ export class AuthService {
       this.SetUserData(result.user);
       this.afAuth.authState.subscribe((user) => {
         if (user) {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['/home']);
         }
       });
     })

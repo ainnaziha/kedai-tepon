@@ -12,18 +12,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
-import { FullComponent } from './layout/full/full.component';
+import { BodyComponent } from './layout/body/body.component';
 
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { MainHeaderComponent } from './layout/main-header/main-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent,
-    HeaderComponent
+    BodyComponent,
+    HeaderComponent,
+    MainHeaderComponent
   ],
   imports: [
     BrowserModule,
