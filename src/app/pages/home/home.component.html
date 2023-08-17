@@ -1,1 +1,3 @@
-<app-banner [products]="products"></app-banner>
+<div *ngIf="products.length > 0">
+    <gallery [items]="items" thumbPosition="left" dots="true" autoPlay="true"></gallery>
+</div>
