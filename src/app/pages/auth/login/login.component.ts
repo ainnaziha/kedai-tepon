@@ -1,9 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/firebase/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class AppSideLoginComponent {
-  constructor() {}
+export class AppSideLoginComponent implements OnInit {
+  userEmail: string = ''; userPassword: string = '';
+
+  constructor(
+    public authService: AuthService
+  ) {}
+
+  ngOnInit() {}
+
+  signIn() {
+    if (this.userEmail && this.userPassword) {
+      this.authService.SignIn(this.userEmail, this.userPassword);
+    }
+  }
 }

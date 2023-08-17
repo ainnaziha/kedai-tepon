@@ -1,26 +1,32 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AuthService } from 'src/app/services/firebase/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
 })
-export class AppSideRegisterComponent {
-  constructor(private router: Router) {}
 
-  form = new FormGroup({
-    uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-  });
+export class AppSideRegisterComponent implements OnInit {
+  registrationForm: FormGroup;
 
-  get f() {
-    return this.form.controls;
+  constructor(
+    private formBuilder: FormBuilder,
+    public authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.registrationForm = this.formBuilder.group({
+      userEmail: ['', [Validators.required, Validators.email]],
+      userPassword: ['', [Validators.required, Validators.minLength(8)]],
+    });
   }
 
-  submit() {
-    // console.log(this.form.value);
-    this.router.navigate(['/dashboard']);
+  signUp() {
+    if (this.registrationForm.valid) {
+      const email = this.registrationForm.get('userEmail').value;
+      const password = this.registrationForm.get('userPassword').value;
+      this.authService.SignUp(email, password);
+    }
   }
 }
