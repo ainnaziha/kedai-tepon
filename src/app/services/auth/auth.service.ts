@@ -1,5 +1,4 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from './user';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -7,6 +6,8 @@ import {
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from '@angular/fire/auth';
+import { User } from 'src/app/models/user.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root',
@@ -32,11 +33,15 @@ export class AuthService {
     });
   }
 
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null && user.emailVerified !== false ? true : false;
+  }
+
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['/home']);
@@ -52,7 +57,6 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['/home']);
@@ -63,25 +67,23 @@ export class AuthService {
         window.alert(error.message);
       });
   }
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+
+  GetUserUIDFromLocalStorage(): string | null {
+    const userJSON = localStorage.getItem('user');
+    if (userJSON) {
+      const userData = JSON.parse(userJSON);
+      return userData.uid;
+    }
+    return null;
   }
 
-  SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-    };
-    return userRef.set(userData, {
-      merge: true,
-    });
+  GetUserData(): User | null {
+    const userJSON = localStorage.getItem('user');
+    if (userJSON) {
+      const userData = JSON.parse(userJSON);
+      return userData;
+    }
+    return null;
   }
 
   SignOut() {
@@ -93,7 +95,6 @@ export class AuthService {
   GoogleAuth() {
     return this.afAuth.signInWithPopup(new GoogleAuthProvider())
     .then((result) => {
-      this.SetUserData(result.user);
       this.afAuth.authState.subscribe((user) => {
         if (user) {
           this.router.navigate(['/home']);

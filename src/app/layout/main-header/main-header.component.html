@@ -13,9 +13,14 @@
     </span>
 
     <div>
-        <button mat-icon-button> 
-            <mat-icon>add_shopping_cart</mat-icon>
-        </button>
+        <button mat-icon-button aria-label="Cart">
+            <i-tabler
+              class="d-flex"
+              name="shopping-cart"
+              [matBadge]="cartService.getTotal()"
+              matBadgeColor="accent"
+            ></i-tabler>
+          </button>
 
         <button *ngIf="isLoggedIn; else notLoggedIn" 
             mat-icon-button

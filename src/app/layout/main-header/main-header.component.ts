@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/firebase/auth.service'
+import { AuthService } from '../../services/auth/auth.service'
+import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
   selector: 'app-main-header',
@@ -9,7 +10,8 @@ import { AuthService } from '../../services/firebase/auth.service'
 export class MainHeaderComponent {
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    public cartService: CartService
     ) { }
   showSearch: boolean = false;
 
