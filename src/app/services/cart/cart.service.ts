@@ -5,6 +5,7 @@ import { CartItem } from 'src/app/models/cart.model';
 import { Product } from 'src/app/models/product.model';
 import { UserCartService } from '../user-cart/user-cart.service';
 import { take } from 'rxjs';
+import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class CartService {
   constructor(
     private commerceService: CommerceService,
     private authService: AuthService,
-    private userCartService: UserCartService
+    private userCartService: UserCartService,
+    private errorDialogService: ErrorDialogService,
   ) {
     this.getCartItems();
   }
@@ -47,6 +49,8 @@ export class CartService {
           });
         });
       }
+    } else {
+      this.errorDialogService.openDialog('You need to be logged in to add to cart.');
     }
   }
 

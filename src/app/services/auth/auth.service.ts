@@ -1,13 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from '@angular/fire/auth';
 import { User } from 'src/app/models/user.model';
 import { Observable, map } from 'rxjs';
+import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +17,8 @@ export class AuthService {
     public afs: AngularFirestore, 
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private errorDialogService: ErrorDialogService
   ) {
     this.afAuth.authState.subscribe((user) => {
       this.userData = user;
@@ -53,13 +52,11 @@ export class AuthService {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['/home']);
-          } else {
-
           }
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.errorDialogService.openFirebaseAuthErrorDialog(error);
       });
   }
 
@@ -74,7 +71,7 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.errorDialogService.openFirebaseAuthErrorDialog(error);
       });
   }
 
@@ -94,7 +91,7 @@ export class AuthService {
       });
     })
     .catch((error) => {
-      window.alert(error.message);
+      this.errorDialogService.openFirebaseAuthErrorDialog(error);
     });
   }
 }

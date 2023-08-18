@@ -23,6 +23,7 @@ import { GalleryModule } from 'ng-gallery';
 import { HomeComponent } from './pages/home/home.component';
 import { ProductCardComponent } from './components/product/product-card.component';
 import { NotFoundComponent } from './pages/404/404.component';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { NotFoundComponent } from './pages/404/404.component';
     MainHeaderComponent,
     HomeComponent,
     ProductCardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
