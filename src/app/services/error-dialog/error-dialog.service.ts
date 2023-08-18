@@ -29,7 +29,7 @@ export class ErrorDialogService {
           errorMessage = 'Invalid email. Please check your email.';
           break;
         case 'auth/email-already-in-use':
-          errorMessage = 'Registration error. Email already registered.'
+          errorMessage = 'Registration error: Email already registered. Please use another email.'
           break;
       }
     }
