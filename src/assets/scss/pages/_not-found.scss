@@ -1,0 +1,23 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+  }
+  
+  .not-found-card {
+    width: 300px;
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .not-found-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .not-found-content {
+    margin-top: 12px;
+    color: #757575;
+  }
+  

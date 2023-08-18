@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BodyComponent } from './layout/body/body.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { NotFoundComponent } from './pages/404/404.component';
 
 const routes: Routes = [
   {
@@ -28,21 +29,29 @@ const routes: Routes = [
     }
   },
   {
-    path: '',
+    path: 'auth',
     children: [
       {
-        path: 'auth',
-        redirectTo: '/auth/login',
-        pathMatch: 'full',
-      },
-      {
-        path: 'auth',
+        path: '',
         component: BodyComponent,
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./pages/auth/auth.module').then(
             (m) => m.AuthModule
           ),
+      },
+    ],
+    data: {
+      isMainHeader: false,
+    }
+  },
+  {
+    path: '**',
+    component: BodyComponent,
+    children: [
+      {
+        path: '',
+        component: NotFoundComponent,
       },
     ],
     data: {
