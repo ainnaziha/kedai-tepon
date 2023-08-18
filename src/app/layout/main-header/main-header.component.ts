@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/firebase/auth.service'
+
 @Component({
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
 })
 export class MainHeaderComponent {
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+    ) { }
   showSearch: boolean = false;
 
   toggleSearch() {
@@ -14,5 +19,13 @@ export class MainHeaderComponent {
 
   redirectToLogin() {
     this.router.navigate(['/auth/login']); // Replace '/auth/login' with your actual login route
+  }
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn;
+  }
+
+  logout(): void {
+    this.authService.SignOut();
   }
 }

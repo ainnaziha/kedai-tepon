@@ -16,9 +16,39 @@
         <button mat-icon-button> 
             <mat-icon>add_shopping_cart</mat-icon>
         </button>
-        <button mat-icon-button (click)="redirectToLogin()"> 
-            <mat-icon>login</mat-icon>
+
+        <button *ngIf="isLoggedIn; else notLoggedIn" 
+            mat-icon-button
+            [matMenuTriggerFor]="profilemenu"
+            aria-label="Notifications"
+        >
+            <img
+            src="/assets/images/user-1.jpg"
+            class="rounded-circle object-cover"
+            width="35"
+            />
         </button>
+        <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
+            <button mat-menu-item>
+            <mat-icon class="d-flex align-items-center"
+                ><i-tabler name="user" class="icon-18 d-flex"></i-tabler></mat-icon
+            >My Profile
+            </button>
+            <div class="p-x-12 m-t-12">
+            <a (click)="logout()"
+                mat-stroked-button
+                color="primary"
+                class="w-100"
+                >Logout</a
+            >
+            </div>
+        </mat-menu>
+
+        <ng-template #notLoggedIn>
+            <button mat-icon-button (click)="redirectToLogin()"> 
+                <mat-icon>login</mat-icon>
+            </button>
+        </ng-template>
 
     </div>
 
