@@ -34,8 +34,4 @@ export class HomeComponent implements OnInit {
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
   }
-
-  get user(): User | null {
-    return this.authService.getUser;
-  }
 }

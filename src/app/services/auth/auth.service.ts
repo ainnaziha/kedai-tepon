@@ -22,19 +22,17 @@ export class AuthService {
     public ngZone: NgZone
   ) {
     this.afAuth.authState.subscribe((user) => {
+      this.userData = user;
       if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user')!);
+      localStorage.setItem('user', JSON.stringify(this.userData));
       } else {
         localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
       }
     });
   }
 
-  get getUser(): User | null {
-    return this.userData;
+  get getUser$(): Observable<User | null> {
+    return this.afAuth.authState.pipe();
   }
 
   get isLoggedIn(): boolean {

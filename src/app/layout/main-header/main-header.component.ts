@@ -8,17 +8,12 @@ import { CartItem } from 'src/app/models/cart.model';
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
 })
-export class MainHeaderComponent implements OnInit {
-  totalCart: number = 0;
-
+export class MainHeaderComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private cartService: CartService
+    public cartService: CartService
    ) { }
-  async ngOnInit(): Promise<void> {
-    this.totalCart = (await this.cartService.getCartItems()).length;
-  }
 
   showSearch: boolean = false;
 
@@ -36,5 +31,6 @@ export class MainHeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.SignOut();
+    this.cartService.clear();
   }
 }

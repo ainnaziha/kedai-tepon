@@ -17,7 +17,7 @@
             <i-tabler
               class="d-flex"
               name="shopping-cart"
-              [matBadge]="totalCart"
+              [matBadge]="cartService.cart?.total_items ?? 0"
               matBadgeColor="accent"
             ></i-tabler>
           </button>
