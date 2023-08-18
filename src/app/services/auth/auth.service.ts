@@ -14,7 +14,7 @@ import { Observable, map } from 'rxjs';
 })
 
 export class AuthService {
-  userData: User;
+  private userData: User | null;
   constructor(
     public afs: AngularFirestore, 
     public afAuth: AngularFireAuth,
@@ -31,6 +31,10 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
+  }
+
+  get getUser(): User | null {
+    return this.userData;
   }
 
   get isLoggedIn(): boolean {

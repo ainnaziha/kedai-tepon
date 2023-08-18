@@ -14,6 +14,6 @@ import { CartService } from '../../services/cart/cart.service';
     @Input() product: any;
 
     addToCart(product: any): void {
-      this.cartService.addToCart(product);
+      this.cartService.addToCart(product, 1);
     }
   }

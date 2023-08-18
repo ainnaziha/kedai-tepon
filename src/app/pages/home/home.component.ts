@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommerceService } from '../../services/commerceJS/commerce.service';
+import { CommerceService } from '../../services/commerce-js/commerce.service';
 import { Product } from 'src/app/models/product.model';
 import { ImageItem } from 'ng-gallery';
 import { AuthService } from '../../services/auth/auth.service'
 import { User } from 'src/app/models/user.model';
-import { Observable } from 'rxjs/internal/Observable';
-
+import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +36,6 @@ export class HomeComponent implements OnInit {
   }
 
   get user(): User | null {
-    return this.authService.userData;
+    return this.authService.getUser;
   }
 }

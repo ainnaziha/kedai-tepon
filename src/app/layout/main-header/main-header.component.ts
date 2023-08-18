@@ -1,18 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service'
 import { CartService } from 'src/app/services/cart/cart.service';
+import { CartItem } from 'src/app/models/cart.model';
 
 @Component({
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
 })
-export class MainHeaderComponent {
+export class MainHeaderComponent implements OnInit {
+  totalCart: number = 0;
+
   constructor(
     private router: Router,
     private authService: AuthService,
-    public cartService: CartService
-    ) { }
+    private cartService: CartService
+   ) { }
+  async ngOnInit(): Promise<void> {
+    this.totalCart = (await this.cartService.getCartItems()).length;
+  }
+
   showSearch: boolean = false;
 
   toggleSearch() {
@@ -20,7 +27,7 @@ export class MainHeaderComponent {
   }
 
   redirectToLogin() {
-    this.router.navigate(['/auth/login']); // Replace '/auth/login' with your actual login route
+    this.router.navigate(['/auth/login']);
   }
 
   get isLoggedIn(): boolean {
