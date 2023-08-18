@@ -8,6 +8,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -22,5 +23,7 @@ export class HeaderComponent {
 
   showFiller = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    ) {}
 }
