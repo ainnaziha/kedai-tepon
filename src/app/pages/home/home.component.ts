@@ -37,6 +37,6 @@ export class HomeComponent implements OnInit {
   }
 
   get user(): User | null {
-    return this.authService.GetUserData();
+    return this.authService.userData;
   }
 }

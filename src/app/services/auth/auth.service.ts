@@ -7,19 +7,19 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from '@angular/fire/auth';
 import { User } from 'src/app/models/user.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class AuthService {
-  userData: any; // Save logged in user data
+  userData: User;
   constructor(
-    public afs: AngularFirestore, // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
+    public afs: AngularFirestore, 
+    public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -35,16 +35,24 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null;
+  }
+
+  get isLoggedIn$(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map(user => user !== null)
+    );
   }
 
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then((_) => {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['/home']);
+          } else {
+
           }
         });
       })
@@ -56,7 +64,7 @@ export class AuthService {
   SignUp(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then((_) => {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['/home']);
@@ -68,24 +76,6 @@ export class AuthService {
       });
   }
 
-  GetUserUIDFromLocalStorage(): string | null {
-    const userJSON = localStorage.getItem('user');
-    if (userJSON) {
-      const userData = JSON.parse(userJSON);
-      return userData.uid;
-    }
-    return null;
-  }
-
-  GetUserData(): User | null {
-    const userJSON = localStorage.getItem('user');
-    if (userJSON) {
-      const userData = JSON.parse(userJSON);
-      return userData;
-    }
-    return null;
-  }
-
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
@@ -94,7 +84,7 @@ export class AuthService {
 
   GoogleAuth() {
     return this.afAuth.signInWithPopup(new GoogleAuthProvider())
-    .then((result) => {
+    .then((_) => {
       this.afAuth.authState.subscribe((user) => {
         if (user) {
           this.router.navigate(['/home']);
