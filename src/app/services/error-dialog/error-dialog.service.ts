@@ -28,7 +28,7 @@ export class ErrorDialogService {
         case 'auth/invalid-email':
           errorMessage = 'Invalid email. Please check your email.';
           break;
-        case 'auth/email-already-exists':
+        case 'auth/email-already-in-use':
           errorMessage = 'Registration error. Email already registered.'
           break;
       }
