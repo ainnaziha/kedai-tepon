@@ -1,9 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { CommerceService } from 'src/app/services/commerce-js/commerce.service';
+import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.service';
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +15,9 @@ import { CartService } from 'src/app/services/cart/cart.service';
 export class CartComponent implements AfterViewInit, OnInit {
   constructor(
     private cartService: CartService,
+    private commerceService: CommerceService,
+    private errorDialogService: ErrorDialogService,
+    private router: Router,
    ) {}
 
   displayedColumns: string[] = ['product', 'price', 'quantity', 'total', 'id'];
@@ -59,5 +65,14 @@ export class CartComponent implements AfterViewInit, OnInit {
 
   get cartAvailable(): boolean {
     return this.cartService.cart;
+  }
+
+  async checkOut() {
+    try {
+      const response = await this.commerceService.generateCheckoutToken(this.cartService.cart.id);
+      this.router.navigate(['/payment', response.id]);
+    } catch (e) {
+      this.errorDialogService.openDialog(e.message);
+    }
   }
 }

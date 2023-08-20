@@ -36,10 +36,10 @@ export class StripeService {
     this.card.mount(elementRef);
   }
 
-  async handlePayment(cartId: string, email: string) {
+  async handlePayment(checkoutId: string, email: string) {
     const token = await this.createPaymentToken();
     if (token) {
-      this.commerceService.captureOrder(token, cartId, email);
+      this.commerceService.captureOrder(token, checkoutId, email);
     }
   }
 

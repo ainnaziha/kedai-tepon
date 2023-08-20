@@ -67,7 +67,7 @@
               mat-flat-button
               color="accent"
               matTooltip="Checkout"
-              [routerLink]="['/payment']"
+              (click)="checkOut()"
             >
               Checkout
             </button>

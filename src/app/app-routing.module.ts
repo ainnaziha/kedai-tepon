@@ -26,7 +26,7 @@ const routes: Routes = [
         component: CartComponent,
       },
       {
-        path: 'payment',
+        path: 'payment/:checkout_id',
         component: StripePaymentComponent,
       },
     ],
