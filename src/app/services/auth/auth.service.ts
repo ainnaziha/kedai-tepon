@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GoogleAuthProvider } from '@angular/fire/auth';
+import { GoogleAuthProvider, user } from '@angular/fire/auth';
 import { User } from 'src/app/models/user.model';
 import { Observable, map } from 'rxjs';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
@@ -88,5 +88,9 @@ export class AuthService {
     .catch((error) => {
       this.errorDialogService.openFirebaseAuthErrorDialog(error);
     });
+  }
+
+  get userEmail(): string {
+    return this.userData.email;
   }
 }

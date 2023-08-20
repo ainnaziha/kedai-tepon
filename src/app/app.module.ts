@@ -26,6 +26,7 @@ import { NotFoundComponent } from './pages/404/404.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductDialogComponent } from './components/product/product-dialog.component';
+import { StripePaymentComponent } from './pages/payment/stripe-payment.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ProductDialogComponent } from './components/product/product-dialog.comp
     ErrorDialogComponent,
     CartComponent,
     ProductDialogComponent,
+    StripePaymentComponent
   ],
   imports: [
     BrowserModule,

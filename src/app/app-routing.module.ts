@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { NotFoundComponent } from './pages/404/404.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { StripePaymentComponent } from './pages/payment/stripe-payment.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent,
+      },
+      {
+        path: 'payment',
+        component: StripePaymentComponent,
       },
     ],
     data: {

@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, map } from 'rxjs';
 import { CartItem } from 'src/app/models/cart.model';
-import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { CartService } from 'src/app/services/cart/cart.service';
 })
 export class CartComponent implements AfterViewInit, OnInit {
   constructor(
-    private cartService: CartService
+    private cartService: CartService,
    ) {}
 
   displayedColumns: string[] = ['product', 'price', 'quantity', 'total', 'id'];
