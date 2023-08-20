@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from '../../services/cart/cart.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ProductDialogComponent } from './product-dialog.component';
+import { Product } from 'src/app/models/product.model';
   
   @Component({
     selector: 'app-product-card',
@@ -8,12 +10,22 @@ import { CartService } from '../../services/cart/cart.service';
   })
   export class ProductCardComponent {
     constructor(
-      public cartService: CartService
-      ) {}
+      public cartService: CartService,
+      private dialog: MatDialog
+    ) {}
 
-    @Input() product: any;
+    @Input() product: Product;
 
-    addToCart(product: any): void {
-      this.cartService.addToCart(product);
+    addToCart(): void {
+      this.cartService.addToCart(this.product);
+    }
+
+    openProductDetail() {
+      this.dialog.open(ProductDialogComponent, {
+        data: {
+          product: this.product,
+        },
+        width: '500px',
+      });
     }
   }
