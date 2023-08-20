@@ -4,6 +4,7 @@ import { BodyComponent } from './layout/body/body.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { NotFoundComponent } from './pages/404/404.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'cart',
-        component: HomeComponent,
+        component: CartComponent,
       },
     ],
     data: {

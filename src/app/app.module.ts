@@ -24,6 +24,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProductCardComponent } from './components/product/product-card.component';
 import { NotFoundComponent } from './pages/404/404.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     HomeComponent,
     ProductCardComponent,
     NotFoundComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

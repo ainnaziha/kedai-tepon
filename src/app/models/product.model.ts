@@ -1,15 +1,17 @@
+import { Price } from "./price.model";
+
 export class Product {
     id: string;
     name: string;
-    description: string;
-    price: string;
+    description: string | null;
+    price: Price;
     imageUrl: string | null;
   
     constructor(data: any) {
-      this.id = data.id;
-      this.name = data.name;
+      this.id = data.id ?? data.product_id;
+      this.name = data.name ?? data.product_name;
       this.description = data.description;
-      this.price = data.price.formatted_with_symbol;
+      this.price = new Price(data.price);
       this.imageUrl = data.image?.url;
     }
   }
