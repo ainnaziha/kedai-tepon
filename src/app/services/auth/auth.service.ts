@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GoogleAuthProvider } from '@angular/fire/auth';
+import { GoogleAuthProvider, user } from '@angular/fire/auth';
 import { User } from 'src/app/models/user.model';
 import { Observable, map } from 'rxjs';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
@@ -29,11 +29,7 @@ export class AuthService {
       }
     });
   }
-
-  get getUser$(): Observable<User | null> {
-    return this.afAuth.authState.pipe();
-  }
-
+  
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null;
@@ -72,7 +68,6 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      localStorage.removeItem('cart_id');
     });
   }
 
@@ -88,5 +83,9 @@ export class AuthService {
     .catch((error) => {
       this.errorDialogService.openFirebaseAuthErrorDialog(error);
     });
+  }
+
+  get getUser(): User | null {
+    return JSON.parse(localStorage.getItem('user')!);
   }
 }

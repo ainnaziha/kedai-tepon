@@ -72,13 +72,13 @@ export class CartService {
   }
 
   async getUserCart(): Promise<void> {
-    const user = await this.authService.getUser$.pipe(take(1)).toPromise();
+    const user = this.authService.getUser;
     if (user) {
       if (!this.cart) {
-        const cartId = await this.userCartService.getCartId(user.uid);
+        const cartId = await this.userCartService.getCartId();
         await this.getCart(cartId);
         if (this.cart) {
-          this.userCartService.createOrUpdateCart(user.uid, this.cart.id);
+          this.userCartService.createOrUpdateCart(this.cart.id);
         }
       }
     }
@@ -87,6 +87,7 @@ export class CartService {
   clear() {
     this.cartItems = [];
     this.cart = null;
+    localStorage.removeItem('cart_id');
   }
 
   get subTotal(): Price | null {
