@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/firebase/auth.service'
+import { AuthService } from '../../services/auth/auth.service'
+import { CartService } from 'src/app/services/cart/cart.service';
+import { CartItem } from 'src/app/models/cart.model';
 
 @Component({
   selector: 'app-main-header',
@@ -9,8 +11,12 @@ import { AuthService } from '../../services/firebase/auth.service'
 export class MainHeaderComponent {
   constructor(
     private router: Router,
-    private authService: AuthService
-    ) { }
+    private authService: AuthService,
+    public cartService: CartService
+   ) { 
+    this.cartService.getCartItems();
+   }
+
   showSearch: boolean = false;
 
   toggleSearch() {
@@ -18,7 +24,7 @@ export class MainHeaderComponent {
   }
 
   redirectToLogin() {
-    this.router.navigate(['/auth/login']); // Replace '/auth/login' with your actual login route
+    this.router.navigate(['/auth/login']);
   }
 
   get isLoggedIn(): boolean {
@@ -27,5 +33,6 @@ export class MainHeaderComponent {
 
   logout(): void {
     this.authService.SignOut();
+    this.cartService.clear();
   }
 }

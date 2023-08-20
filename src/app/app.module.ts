@@ -22,6 +22,9 @@ import { MainHeaderComponent } from './layout/main-header/main-header.component'
 import { GalleryModule } from 'ng-gallery';
 import { HomeComponent } from './pages/home/home.component';
 import { ProductCardComponent } from './components/product/product-card.component';
+import { NotFoundComponent } from './pages/404/404.component';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { ProductCardComponent } from './components/product/product-card.componen
     HeaderComponent,
     MainHeaderComponent,
     HomeComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    NotFoundComponent,
+    ErrorDialogComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

@@ -13,9 +13,14 @@
     </span>
 
     <div>
-        <button mat-icon-button> 
-            <mat-icon>add_shopping_cart</mat-icon>
-        </button>
+        <button mat-icon-button aria-label="Cart" [routerLink]="['/cart']">
+            <i-tabler
+              class="d-flex"
+              name="shopping-cart"
+              [matBadge]="cartService.cart?.total_items ?? 0"
+              matBadgeColor="accent"
+              ></i-tabler>
+          </button>
 
         <button *ngIf="isLoggedIn; else notLoggedIn" 
             mat-icon-button
@@ -37,7 +42,6 @@
             <div class="p-x-12 m-t-12">
             <a (click)="logout()"
                 mat-stroked-button
-                color="primary"
                 class="w-100"
                 >Logout</a
             >
