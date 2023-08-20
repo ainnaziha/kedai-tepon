@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    this.cartService.getCartItems();
     this.commerceService.commerce.products.list().then((response) => {
       this.products = response.data.map((productData) => new Product(productData));
       this.items = this.products.map((product) => {

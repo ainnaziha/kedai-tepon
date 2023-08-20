@@ -1,23 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service'
 import { CartService } from 'src/app/services/cart/cart.service';
-import { CartItem } from 'src/app/models/cart.model';
 
 @Component({
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
 })
-export class MainHeaderComponent implements OnInit {
+export class MainHeaderComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
     public cartService: CartService
    ) {}
-
-  ngOnInit(): void {
-    this.cartService.getCartItems();
-  }
 
   showSearch: boolean = false;
 
@@ -36,5 +31,6 @@ export class MainHeaderComponent implements OnInit {
   logout(): void {
     this.authService.SignOut();
     this.cartService.clear();
+    this.router.navigate(['']);
   }
 }

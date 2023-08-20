@@ -8,6 +8,8 @@ export class CartItem {
     lineTotal: Price;
     isEditing?: boolean;
     newQuantity?: number;
+    isLoading?: boolean;
+    isDeleting?: boolean;
 
     constructor(data: any) {
       this.id = data.id;

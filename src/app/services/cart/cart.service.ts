@@ -105,7 +105,7 @@ export class CartService {
   async updateCart(id: string, quantity: number): Promise<void> {
     const index = this.cartItems.findIndex(item => item.id === id);
 
-    this.commerceService.commerce.cart.update(id, { quantity: quantity}).then((cart) => {
+    await this.commerceService.commerce.cart.update(id, { quantity: quantity}).then((cart) => {
       this.cartItems[index].quantity = quantity;
       this.cartItemsSubject.next(this.cartItems);
       this.cart = cart;
@@ -115,7 +115,7 @@ export class CartService {
   async deleteCart(id: string): Promise<void> {
     const index = this.cartItems.findIndex(item => item.id === id);
 
-    this.commerceService.commerce.cart.remove(id).then((cart) => {
+    await this.commerceService.commerce.cart.remove(id).then((cart) => {
       this.cartItems.splice(index, 1);
       this.cartItemsSubject.next(this.cartItems);
       this.cart = cart;

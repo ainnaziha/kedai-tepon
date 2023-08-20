@@ -30,6 +30,7 @@ export class CartComponent implements AfterViewInit, OnInit {
   isChecking: boolean = false; 
 
   ngOnInit() {
+    this.cartService.getCartItems();
     this.dataSource$ = this.cartService.cartItems$.pipe(
       map(newCartItems => new MatTableDataSource<CartItem>(newCartItems))
     );
@@ -41,8 +42,13 @@ export class CartComponent implements AfterViewInit, OnInit {
     });
   }
 
-  deleteItem(id: string) {
-    this.cartService.deleteCart(id);
+  async deleteItem(element: CartItem) {
+    element.isDeleting = true;
+    try {
+      await this.cartService.deleteCart(element.id);
+    } finally {
+      element.isDeleting = false;
+    }
   }
 
   startEditing(element: CartItem): void {
@@ -50,13 +56,20 @@ export class CartComponent implements AfterViewInit, OnInit {
     element.newQuantity = element.quantity;
   }
 
-  saveChanges(element: CartItem): void {
-    element.isEditing = false;
+  async saveChanges(element: CartItem): Promise<void> {
     const newQuantity = element.newQuantity;
 
     if (newQuantity !== null && newQuantity > 0 && newQuantity !== element.quantity) {
-      this.cartService.updateCart(element.id, newQuantity);
-    } 
+      try {
+        element.isLoading = true;
+        await this.cartService.updateCart(element.id, newQuantity);
+      } finally {
+        element.isLoading = false;
+        element.isEditing = false;
+      }
+    } else {
+      element.isEditing = false;
+    }
   }
 
   cancelChanges(element: CartItem): void {
