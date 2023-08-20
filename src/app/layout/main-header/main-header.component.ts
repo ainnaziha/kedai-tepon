@@ -13,7 +13,9 @@ export class MainHeaderComponent {
     private router: Router,
     private authService: AuthService,
     public cartService: CartService
-   ) { }
+   ) { 
+    this.cartService.getCartItems();
+   }
 
   showSearch: boolean = false;
 

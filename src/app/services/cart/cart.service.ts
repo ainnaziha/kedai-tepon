@@ -19,9 +19,7 @@ export class CartService {
     private authService: AuthService,
     private userCartService: UserCartService,
     private errorDialogService: ErrorDialogService,
-  ) {
-    this.getCartItems();
-  }
+  ) {}
 
   async addToCart(product: Product, quantity: number): Promise<void> {
     await this.getUserCart();

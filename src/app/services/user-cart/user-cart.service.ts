@@ -8,6 +8,15 @@ export class UserCartService {
   constructor(private firestore: AngularFirestore) {}
 
   async getCartId(userId: string): Promise<string | null> {
+    let cartId = localStorage.getItem('cart_id');
+    if (cartId == null) {
+      cartId = await this.getCartIdFromFirestore(userId);
+      localStorage.setItem('cart_id', cartId);
+    }
+    return cartId;
+  }
+
+  async getCartIdFromFirestore(userId: string): Promise<string | null> {
     const snapshot = await this.firestore.collection('carts')
       .doc(userId)
       .get()
