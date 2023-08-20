@@ -2,10 +2,12 @@ import { Price } from "./price.model";
 import { Product } from "./product.model";
 
 export class CartItem {
-    id: String;
+    id: string;
     product: Product;
     quantity: number;
     lineTotal: Price;
+    isEditing?: boolean;
+    newQuantity?: number;
 
     constructor(data: any) {
       this.id = data.id;

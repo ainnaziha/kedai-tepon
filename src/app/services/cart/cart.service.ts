@@ -102,4 +102,14 @@ export class CartService {
       this.cart = cart;
     });  
   }
+
+  async deleteCart(id: string): Promise<void> {
+    const index = this.cartItems.findIndex(item => item.id === id);
+
+    this.commerceService.commerce.cart.remove(id).then((cart) => {
+      this.cartItems.splice(index, 1);
+      this.cartItemsSubject.next(this.cartItems);
+      this.cart = cart;
+    });  
+  }
 }

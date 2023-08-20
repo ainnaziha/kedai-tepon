@@ -12,10 +12,10 @@ import { CartService } from 'src/app/services/cart/cart.service';
 })
 export class CartComponent implements AfterViewInit, OnInit {
   constructor(
-    public cartService: CartService
+    private cartService: CartService
    ) {}
 
-  displayedColumns: string[] = ['product', 'price', 'quantity', 'total'];
+  displayedColumns: string[] = ['product', 'price', 'quantity', 'total', 'id'];
   dataSource$: Observable<MatTableDataSource<CartItem>>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,5 +30,35 @@ export class CartComponent implements AfterViewInit, OnInit {
     this.dataSource$.subscribe(dataSource => {
       dataSource.paginator = this.paginator;
     });
+  }
+
+  deleteItem(id: string) {
+    this.cartService.deleteCart(id);
+  }
+
+  startEditing(element: CartItem): void {
+    element.isEditing = true;
+    element.newQuantity = element.quantity;
+  }
+
+  saveChanges(element: CartItem): void {
+    element.isEditing = false;
+    const newQuantity = element.newQuantity;
+
+    if (newQuantity !== null && newQuantity > 0 && newQuantity !== element.quantity) {
+      this.cartService.updateCart(element.id, newQuantity);
+    } 
+  }
+
+  cancelChanges(element: CartItem): void {
+    element.isEditing = false;
+  }
+
+  get total(): string {
+    return this.cartService.subTotal?.formattedWithSymbol ?? '';
+  }
+
+  get cartAvailable(): boolean {
+    return this.cartService.cart;
   }
 }
