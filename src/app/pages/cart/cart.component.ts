@@ -27,6 +27,8 @@ export class CartComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  isChecking: boolean = false; 
+
   ngOnInit() {
     this.dataSource$ = this.cartService.cartItems$.pipe(
       map(newCartItems => new MatTableDataSource<CartItem>(newCartItems))
@@ -70,12 +72,20 @@ export class CartComponent implements AfterViewInit, OnInit {
   }
 
   async checkOut() {
+    this.isChecking = true;
+     
     try {
       const response = await this.checkoutService.generateCheckoutToken(this.cartService.cart.id);
       this.checkoutService.setCheckoutData(response);
       this.router.navigate(['/checkout', response.id]);
     } catch (e) {
       this.errorDialogService.openDialog(e.message);
+    } finally {
+      this.isChecking = false;
     }
   }
+  
+  get isLoading(): boolean {
+    return this.cartService.isLoading;
+  } 
 }

@@ -16,8 +16,15 @@ import { Product } from 'src/app/models/product.model';
 
     @Input() product: Product;
 
-    addToCart(): void {
-      this.cartService.addToCart(this.product);
+    async addToCart(): Promise<void> {
+      this.product.isLoading = true;
+      console.log(this.product.isLoading);
+      try {
+        await this.cartService.addToCart(this.product);
+      } finally {
+        this.product.isLoading = false;
+        console.log(this.product.isLoading);
+      }
     }
 
     openProductDetail() {

@@ -8,14 +8,16 @@ import { CartItem } from 'src/app/models/cart.model';
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
 })
-export class MainHeaderComponent {
+export class MainHeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
     public cartService: CartService
-   ) { 
+   ) {}
+
+  ngOnInit(): void {
     this.cartService.getCartItems();
-   }
+  }
 
   showSearch: boolean = false;
 

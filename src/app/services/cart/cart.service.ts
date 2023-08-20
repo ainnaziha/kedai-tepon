@@ -18,6 +18,8 @@ export class CartService {
 
   cart: any;
 
+  isLoading: boolean = false;
+
   constructor(
     private commerceService: CommerceService,
     private authService: AuthService,
@@ -31,9 +33,9 @@ export class CartService {
       const existingCartItemIndex = this.cartItems.findIndex(item => item.product.id === product.id);
       if (existingCartItemIndex !== -1) {
         this.cartItems[existingCartItemIndex].quantity += 1;
-        this.commerceService.commerce.cart.update(this.cartItems[existingCartItemIndex].id, { quantity: this.cartItems[existingCartItemIndex].quantity}).then(cart => this.cart = cart);
+        await this.commerceService.commerce.cart.update(this.cartItems[existingCartItemIndex].id, { quantity: this.cartItems[existingCartItemIndex].quantity}).then(cart => this.cart = cart);
       } else {
-        this.commerceService.commerce.cart.add(product.id, 1)
+        await this.commerceService.commerce.cart.add(product.id, 1)
         .then(cart => {
           this.cart = cart;
           this.cartItems = this.cart.line_items.map(item => {
@@ -47,15 +49,21 @@ export class CartService {
   }
 
   async getCartItems(): Promise<void> {
-    await this.getUserCart();
-    if (this.cart) {
-      this.cartItems = await Promise.all(this.cart.line_items.map(async item => {
-        return new CartItem(item);
-      }));
-      this.cartItemsSubject.next(this.cartItems);
-    } else {
-      this.cartItems = [];
-      this.cartItemsSubject.next(this.cartItems);
+    this.isLoading = true;
+
+    try {
+      await this.getUserCart();
+      if (this.cart) {
+        this.cartItems = await Promise.all(this.cart.line_items.map(async item => {
+          return new CartItem(item);
+        }));
+        this.cartItemsSubject.next(this.cartItems);
+      } else {
+        this.cartItems = [];
+        this.cartItemsSubject.next(this.cartItems);
+      }
+    } finally {
+      this.isLoading = false;
     }
   }  
 

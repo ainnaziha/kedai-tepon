@@ -46,4 +46,8 @@ export class CheckoutComponent implements OnInit {
       this.stripeService.handlePayment(this.checkoutId, this.userEmail, this.userName, this.userStreet, this.userTown);
     }
   }
+
+  get isLoad() {
+    return this.stripeService.isLoad;
+  }
 }

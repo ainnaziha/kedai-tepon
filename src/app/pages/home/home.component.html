@@ -1,16 +1,19 @@
-<div>
-    <h2 class="f-w-500 text-muted f-s-30 text-center">Connecting you world, electronically</h2>
-</div>
-<div *ngIf="products.length > 0" class="m-b-30">
-    <gallery [items]="items" [thumb]="false" dots="true" autoPlay="true"></gallery>
-</div>
-
-<div>
-    <h2 class="f-w-500 text-muted">Products</h2>
-</div>
-
-<div class="row">
-    <div class="col-sm-6 col-lg-3" *ngFor="let p of products">
-      <app-product-card [product]="p"></app-product-card>
+<div *ngIf="isLoading" class="overlay-spinner">
+    <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
+  </div>
+    <div>
+        <h2 class="f-w-500 text-muted f-s-30 text-center">Connecting you world, electronically</h2>
     </div>
-</div>
+    <div *ngIf="products.length > 0" class="m-b-30">
+        <gallery [items]="items" [thumb]="false" dots="true" autoPlay="true"></gallery>
+    </div>
+    
+    <div>
+        <h2 class="f-w-500 text-muted">Products</h2>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-6 col-lg-3" *ngFor="let p of products">
+          <app-product-card [product]="p"></app-product-card>
+        </div>
+    </div>

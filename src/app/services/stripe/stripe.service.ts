@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
-import { CommerceService } from '../commerce-js/commerce.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { CheckoutService } from '../checkout/checkout.service';
 
@@ -17,6 +16,8 @@ export class StripeService {
   ) {
     this.initializeStripe();
   }
+
+  isLoad : boolean = false;
 
   private async initializeStripe() {
     this.stripe = await loadStripe('pk_test_51NhByWGCUzgFfsjumc0gWcNu119wmEbiSLGbFFV7Eqi9lnr2VBGyjJL840CG863FpSjg1xI2UVnNUjLw1047eAFr00VuUIZTH3');
@@ -38,11 +39,16 @@ export class StripeService {
   }
 
   async handlePayment(checkoutId: string, email: string, name: string, street: string, townCity: string) {
-    const paymentMethodResult = await this.createPaymentMethod();
+    this.isLoad = true;
+    try {
+      const paymentMethodResult = await this.createPaymentMethod();
 
-    if (paymentMethodResult) {
-      const paymentMethodId = paymentMethodResult.paymentMethod.id;
-      this.checkoutService.captureOrder(paymentMethodId, checkoutId, email, name, street, townCity);
+      if (paymentMethodResult) {
+        const paymentMethodId = paymentMethodResult.paymentMethod.id;
+        await this.checkoutService.captureOrder(paymentMethodId, checkoutId, email, name, street, townCity);
+      }
+    } finally {
+      this.isLoad = false;
     }
   }
 

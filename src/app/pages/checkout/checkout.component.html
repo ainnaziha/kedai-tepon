@@ -32,8 +32,17 @@
 
                 <div id="card-element" #cardElement></div>
 
-                <button mat-flat-button color="accent" class="w-100 m-t-24" type="submit" (click)="handlePayment()" >
-                  Pay
+                <button mat-flat-button color="accent" class="w-100 m-t-24" type="submit" (click)="handlePayment()" [disabled]="isLoad" >
+                  <div class="row">
+                    <span *ngIf="isLoad;" class="m-r-8">
+                      <mat-progress-spinner
+                        mode="indeterminate"
+                        diameter="20"
+                        color="accent"
+                      ></mat-progress-spinner>
+                    </span>
+                    Pay
+                  </div>
                 </button>
             </form>
           </mat-card-content>

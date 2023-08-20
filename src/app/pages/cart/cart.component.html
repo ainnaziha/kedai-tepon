@@ -1,4 +1,7 @@
-<mat-card class="cardWithShadow theme-card">
+<div *ngIf="isLoading" class="overlay-spinner">
+  <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
+</div>
+  <mat-card class="cardWithShadow theme-card">
     <mat-card-header>
       <mat-card-title class="m-b-0">Shopping Cart</mat-card-title>
     </mat-card-header>
@@ -68,9 +71,19 @@
               color="accent"
               matTooltip="Checkout"
               (click)="checkOut()"
+              [disabled]="isChecking"
             >
+            <span *ngIf="isChecking; else checkoutText">
+              <mat-progress-spinner
+                mode="indeterminate"
+                diameter="20"
+                color="accent"
+              ></mat-progress-spinner>
+            </span>
+            <ng-template #checkoutText>
               Checkout
-            </button>
+            </ng-template>
+          </button>
           </div>
     </mat-card-content>
 </mat-card>
