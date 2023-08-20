@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserCartService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private authService: AuthService
+  ) {}
 
-  async getCartId(userId: string): Promise<string | null> {
+  async getCartId(): Promise<string | null> {
     let cartId = localStorage.getItem('cart_id');
-    if (cartId == null) {
-      cartId = await this.getCartIdFromFirestore(userId);
-      localStorage.setItem('cart_id', cartId);
+
+    if (!cartId) {
+      cartId = await this.getCartIdFromFirestore();
+      if (cartId) {
+        localStorage.setItem('cart_id', cartId);
+      }
     }
     return cartId;
   }
 
-  async getCartIdFromFirestore(userId: string): Promise<string | null> {
+  async getCartIdFromFirestore(): Promise<string | null> {
     const snapshot = await this.firestore.collection('carts')
-      .doc(userId)
+      .doc(this.authService.getUser.uid)
       .get()
       .toPromise();
 
@@ -29,10 +36,14 @@ export class UserCartService {
     }
   }
 
-  createOrUpdateCart(userId: string, cartId: string): Promise<void> {
+  createOrUpdateCart(cartId: string): Promise<void> {
     return this.firestore
       .collection('carts')
-      .doc(userId)
+      .doc(this.authService.getUser.uid)
       .set({ cart_id: cartId }, { merge: true });
+  }
+
+  deleteCart(): Promise<void> {
+    return this.firestore.collection('carts').doc(this.authService.getUser.uid).delete();
   }
 }

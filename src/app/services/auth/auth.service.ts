@@ -29,11 +29,7 @@ export class AuthService {
       }
     });
   }
-
-  get getUser$(): Observable<User | null> {
-    return this.afAuth.authState.pipe();
-  }
-
+  
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null;
@@ -72,7 +68,6 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      localStorage.removeItem('cart_id');
     });
   }
 
@@ -90,7 +85,7 @@ export class AuthService {
     });
   }
 
-  get userEmail(): string {
-    return this.userData.email;
+  get getUser(): User | null {
+    return JSON.parse(localStorage.getItem('user')!);
   }
 }

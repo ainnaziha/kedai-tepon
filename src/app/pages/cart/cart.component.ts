@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { CheckoutService } from 'src/app/services/checkout/checkout.service';
 import { CommerceService } from 'src/app/services/commerce-js/commerce.service';
 import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.service';
 
@@ -18,6 +19,7 @@ export class CartComponent implements AfterViewInit, OnInit {
     private commerceService: CommerceService,
     private errorDialogService: ErrorDialogService,
     private router: Router,
+    private checkoutService: CheckoutService
    ) {}
 
   displayedColumns: string[] = ['product', 'price', 'quantity', 'total', 'id'];
@@ -64,13 +66,14 @@ export class CartComponent implements AfterViewInit, OnInit {
   }
 
   get cartAvailable(): boolean {
-    return this.cartService.cart;
+    return (this.cartService.cart?.total_items ?? []) > 0;
   }
 
   async checkOut() {
     try {
-      const response = await this.commerceService.generateCheckoutToken(this.cartService.cart.id);
-      this.router.navigate(['/payment', response.id]);
+      const response = await this.checkoutService.generateCheckoutToken(this.cartService.cart.id);
+      this.checkoutService.setCheckoutData(response);
+      this.router.navigate(['/checkout', response.id]);
     } catch (e) {
       this.errorDialogService.openDialog(e.message);
     }

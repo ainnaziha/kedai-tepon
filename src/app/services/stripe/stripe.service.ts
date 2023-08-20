@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { CommerceService } from '../commerce-js/commerce.service';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+import { CheckoutService } from '../checkout/checkout.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class StripeService {
   private card: StripeCardElement;
 
   constructor(
-    private commerceService: CommerceService,
-    private errorDialogService: ErrorDialogService
+    private errorDialogService: ErrorDialogService,
+    private checkoutService: CheckoutService
   ) {
     this.initializeStripe();
   }
@@ -36,14 +37,30 @@ export class StripeService {
     this.card.mount(elementRef);
   }
 
-  async handlePayment(checkoutId: string, email: string) {
-    const token = await this.createPaymentToken();
-    if (token) {
-      this.commerceService.captureOrder(token, checkoutId, email);
+  async handlePayment(checkoutId: string, email: string, name: string, street: string, townCity: string) {
+    const paymentMethodResult = await this.createPaymentMethod();
+
+    if (paymentMethodResult) {
+      const paymentMethodId = paymentMethodResult.paymentMethod.id;
+      this.checkoutService.captureOrder(paymentMethodId, checkoutId, email, name, street, townCity);
+    }
+  }
+
+  async createPaymentMethod(): Promise<any> {
+    try {
+      const result = await this.stripe.createPaymentMethod({
+        type: 'card',
+        card: this.card,
+      });
+      return result;
+    } catch (error) {
+      this.errorDialogService.openDialog(error.message);
+      return null;
     }
   }
 
   async createPaymentToken(): Promise<string | null> {
+
     try {
       const { token, error } = await this.stripe.createToken(this.card);
       if (token) {

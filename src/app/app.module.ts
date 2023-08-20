@@ -26,7 +26,9 @@ import { NotFoundComponent } from './pages/404/404.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductDialogComponent } from './components/product/product-dialog.component';
-import { StripePaymentComponent } from './pages/payment/stripe-payment.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { PaymentErrorComponent } from './pages/payment/payment-error/payment-error.component';
+import { PaymentSuccessComponent } from './pages/payment/payment-success/payment-success.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { StripePaymentComponent } from './pages/payment/stripe-payment.component
     ErrorDialogComponent,
     CartComponent,
     ProductDialogComponent,
-    StripePaymentComponent
+    CheckoutComponent,
+    PaymentErrorComponent,
+    PaymentSuccessComponent
   ],
   imports: [
     BrowserModule,
