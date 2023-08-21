@@ -15,7 +15,8 @@ export class Checkout2Component implements OnInit {
   constructor(
     private stripeService: StripeService, 
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private checkoutService: CheckoutService
   ) {}
 
   ngOnInit(): void {
@@ -38,5 +39,13 @@ export class Checkout2Component implements OnInit {
 
   previous() {
     this.router.navigate(['/checkout/1', this.checkoutId]);
+  }
+
+  get total() {
+    let data = this.checkoutService.getCheckoutData;
+    if (data && (this.checkoutId != data.id)) {
+      data = null;
+    }
+    return data ? `Total Price: ${data.total.formattedWithSymbol}` : 'No order detected';
   }
 }
