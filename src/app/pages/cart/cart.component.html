@@ -7,9 +7,21 @@
     </mat-card-header>
     <mat-card-content class="b-t-1">  
           <div class="table-responsive m-t-16">
-            <table mat-table [dataSource]="dataSource$ | async" class="w-100">        
-                <ng-container matColumnDef="product">
-                  <th mat-header-cell *matHeaderCellDef mat-header-cell class="f-w-600 mat-subtitle-1 f-s-14">Product</th>
+            <table mat-table [dataSource]="dataSource$ | async" class="w-100">    
+              <ng-container matColumnDef="imageUrl">
+                <th mat-header-cell *matHeaderCellDef mat-header-cell class="f-w-600 mat-subtitle-1 f-s-14">Product</th>
+                <td mat-cell *matCellDef="let element" class="mat-body-1"> 
+                  <div class="d-flex align-items-center">
+                    <img
+                      [src]="element.product.imageUrl"
+                      alt="product-image"
+                      width="40"
+                    />
+                </div>
+               </td>
+              </ng-container>    
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-header-cell class="f-w-600 mat-subtitle-1 f-s-14">Name</th>
                   <td mat-cell *matCellDef="let element" class="mat-body-1"> {{element.product.name}} </td>
                 </ng-container>
                 <ng-container matColumnDef="price">

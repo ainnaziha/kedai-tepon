@@ -22,7 +22,7 @@ export class CartComponent implements AfterViewInit, OnInit {
     private checkoutService: CheckoutService
    ) {}
 
-  displayedColumns: string[] = ['product', 'price', 'quantity', 'total', 'id'];
+  displayedColumns: string[] = ['imageUrl', 'name', 'price', 'quantity', 'total', 'id'];
   dataSource$: Observable<MatTableDataSource<CartItem>>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
