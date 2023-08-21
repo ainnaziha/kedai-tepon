@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { CheckoutService } from '../checkout/checkout.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class StripeService {
   isLoad : boolean = false;
 
   private async initializeStripe() {
-    this.stripe = await loadStripe('pk_test_51NhByWGCUzgFfsjumc0gWcNu119wmEbiSLGbFFV7Eqi9lnr2VBGyjJL840CG863FpSjg1xI2UVnNUjLw1047eAFr00VuUIZTH3');
+    this.stripe = await loadStripe(environment.stripeKey);
     this.card = this.stripe.elements().create('card', {style: {
       base: {
         fontFamily: '"Helvetica Neue", sans-serif',

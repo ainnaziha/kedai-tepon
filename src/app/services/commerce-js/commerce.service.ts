@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Commerce from '@chec/commerce.js';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,6 @@ export class CommerceService {
 
   constructor(
   ) {
-    this.commerce = new Commerce('pk_test_537353a87d16b50e31fcc40be09492969601d2caa8135', true);
+    this.commerce = new Commerce(environment.commerceApiKey, true);
   }
 }
