@@ -13,7 +13,12 @@ import { CartService } from "src/app/services/cart/cart.service";
         @Inject(MAT_DIALOG_DATA) public data: { product: Product}
     ) {}
 
-    addToCart(): void {
-        this.cartService.addToCart(this.data.product);
+    async addToCart(): Promise<void> {
+      this.data.product.isLoading = true;
+      try {
+        await this.cartService.addToCart(this.data.product);
+      } finally {
+        this.data.product.isLoading = false;
       }
+    }
   }

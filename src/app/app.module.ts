@@ -29,6 +29,7 @@ import { ProductDialogComponent } from './components/product/product-dialog.comp
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { PaymentErrorComponent } from './pages/payment/payment-error/payment-error.component';
 import { PaymentSuccessComponent } from './pages/payment/payment-success/payment-success.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PaymentSuccessComponent } from './pages/payment/payment-success/payment
     AngularFirestoreModule,
     AngularFirestoreModule,
     AngularFireModule,
-    GalleryModule
+    GalleryModule,
+    MatProgressSpinnerModule
   ],
   exports: [TablerIconsModule],
   providers: [],

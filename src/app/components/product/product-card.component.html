@@ -3,8 +3,17 @@
       <img [src]="product.imageUrl" alt="imgSrc" class="w-100" mat-card-image />
     </a>
     <mat-card-content class="p-b-24 p-t-12 position-relative">
-      <button (click)="addToCart()" mat-mini-fab color="accent" class="icon-30 cart-btn" matTooltip="Add to Cart">
-        <i-tabler name="basket" class="icon-16"></i-tabler>
+      <button (click)="addToCart()" mat-mini-fab color="accent" class="icon-40 cart-btn" matTooltip="Add to Cart" [disabled]="product.isLoading">
+        <span *ngIf="product.isLoading; else cartIcon">
+          <mat-progress-spinner
+            mode="indeterminate"
+            diameter="20"
+            color="accent"
+          ></mat-progress-spinner>
+        </span>
+        <ng-template #cartIcon>
+          <i-tabler name="basket" class="icon-26"></i-tabler>
+        </ng-template>
       </button>
       <mat-card-title class="mat-headline-2 f-s-16">{{ product.name }}</mat-card-title>
       <mat-card-subtitle>

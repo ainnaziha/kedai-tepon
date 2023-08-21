@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service'
 import { CartService } from 'src/app/services/cart/cart.service';
-import { CartItem } from 'src/app/models/cart.model';
 
 @Component({
   selector: 'app-main-header',
@@ -13,9 +12,7 @@ export class MainHeaderComponent {
     private router: Router,
     private authService: AuthService,
     public cartService: CartService
-   ) { 
-    this.cartService.getCartItems();
-   }
+   ) {}
 
   showSearch: boolean = false;
 
@@ -34,5 +31,6 @@ export class MainHeaderComponent {
   logout(): void {
     this.authService.SignOut();
     this.cartService.clear();
+    this.router.navigate(['']);
   }
 }

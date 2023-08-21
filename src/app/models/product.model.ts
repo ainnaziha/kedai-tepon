@@ -6,6 +6,7 @@ export class Product {
     description: string | null;
     price: Price;
     imageUrl: string | null;
+    isLoading?: boolean;
   
     constructor(data: any) {
       this.id = data.id ?? data.product_id;
