@@ -26,10 +26,11 @@ import { NotFoundComponent } from './pages/404/404.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductDialogComponent } from './components/product/product-dialog.component';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { PaymentErrorComponent } from './pages/payment/payment-error/payment-error.component';
 import { PaymentSuccessComponent } from './pages/payment/payment-success/payment-success.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Checkout1Component } from './pages/checkout/checkout-1.component';
+import { Checkout2Component } from './pages/checkout/checkout-2.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ErrorDialogComponent,
     CartComponent,
     ProductDialogComponent,
-    CheckoutComponent,
+    Checkout1Component,
+    Checkout2Component,
     PaymentErrorComponent,
     PaymentSuccessComponent
   ],

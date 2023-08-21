@@ -38,14 +38,14 @@ export class StripeService {
     this.card.mount(elementRef);
   }
 
-  async handlePayment(checkoutId: string, email: string, name: string, street: string, townCity: string) {
+  async handlePayment(checkoutId: string) {
     this.isLoad = true;
     try {
       const paymentMethodResult = await this.createPaymentMethod();
 
       if (paymentMethodResult) {
         const paymentMethodId = paymentMethodResult.paymentMethod.id;
-        await this.checkoutService.captureOrder(paymentMethodId, checkoutId, email, name, street, townCity);
+        await this.checkoutService.captureOrder(paymentMethodId, checkoutId);
       }
     } finally {
       this.isLoad = false;

@@ -5,6 +5,7 @@ import { UserCartService } from '../user-cart/user-cart.service';
 import { Router } from '@angular/router';
 import { CommerceService } from '../commerce-js/commerce.service';
 import { CartService } from '../cart/cart.service';
+import { Shipping } from 'src/app/models/shipping.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { CartService } from '../cart/cart.service';
 export class CheckoutService {
   private checkoutData?: CheckoutData;
   private order?: Order;
+  private shipping?: Shipping;
 
   constructor(
     private userCartService: UserCartService,
@@ -41,18 +43,17 @@ export class CheckoutService {
     return response ? new CheckoutData(response) : null;
   }
 
-  async captureOrder(paymentId: string, checkoutToken: string, email: string, 
-    name: string, street: string, townCity: string) {
+  async captureOrder(paymentId: string, checkoutToken: string) {
     try {
       const response = await this.commerceService.commerce.checkout.capture(checkoutToken, {
         customer: {
-          firstname: name,
-          email: email,
+          firstname: this.shipping.name,
+          email: this.shipping.email,
         },
         shipping: {
-          name: name,
-          street: street,
-          town_city: townCity,
+          name: this.shipping.name,
+          street: this.shipping.street,
+          town_city: this.shipping.town,
           country: 'MY',
         },
         fulfillment: {
@@ -76,5 +77,13 @@ export class CheckoutService {
       this.checkoutData = null;
       this.router.navigate(['/payment/error']);
     }
+  }
+
+  setShippingDetails(shipping: Shipping) {
+    this.shipping = shipping;
+  }
+
+  get getShipping() {
+    return this.shipping;
   }
 }
