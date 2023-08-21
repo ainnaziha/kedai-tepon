@@ -90,7 +90,7 @@ export class CartComponent implements AfterViewInit, OnInit {
     try {
       const response = await this.checkoutService.generateCheckoutToken(this.cartService.cart.id);
       this.checkoutService.setCheckoutData(response);
-      this.router.navigate(['/checkout', response.id]);
+      this.router.navigate(['/checkout/1', response.id]);
     } catch (e) {
       this.errorDialogService.openDialog(e.message);
     } finally {

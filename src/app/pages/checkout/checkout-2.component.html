@@ -1,0 +1,48 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
+    <div
+      class="position-relative row w-100 h-100 bg-gredient justify-content-center"
+    >
+      <div class="col-lg-4 d-flex align-items-center">
+        <mat-card class="cardWithShadow boxed-auth">
+          <mat-card-content class="p-32">
+
+            <div class="page-indicator">
+              <div class="page-step">
+                <div class="circle">1</div>
+                <span class="mat-subtitle-2">Shipping Details</span>
+              </div>
+              <div class="separator"></div>
+              <div class="page-step active">
+                <div class="circle">2</div>
+                <span class="mat-subtitle-2 f-w-600">Payment Details</span>
+              </div>
+            </div>
+
+            <form ngNativeValidate>
+                <div class="or-border m-b-12">Credit/Debit Card Details</div>
+
+                <div id="card-element" #cardElement></div>
+
+                <div class="d-flex justify-content-center align-items-center m-t-24">
+                  <button mat-flat-button color="primary" class="m-r-8 col-6" [disabled]="isLoad" (click)="previous()" style="color: #800020">
+                    <div class="row align-items-center">
+                      <mat-icon>keyboard_arrow_left</mat-icon>
+                      Previous
+                    </div>
+                  </button>
+                  <button mat-flat-button color="accent" class="m-l-8 col-6" type="submit" (click)="handlePayment()" [disabled]="isLoad">
+                    <div class="row align-items-center">
+                      <span *ngIf="isLoad;" class="m-r-8">
+                        <mat-progress-spinner mode="indeterminate" diameter="20" color="accent"></mat-progress-spinner>
+                      </span>
+                      Pay
+                      <mat-icon class="m-l-4">payment</mat-icon>
+                    </div>
+                  </button>
+                </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>

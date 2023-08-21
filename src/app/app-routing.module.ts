@@ -5,9 +5,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { NotFoundComponent } from './pages/404/404.component';
 import { CartComponent } from './pages/cart/cart.component';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { PaymentSuccessComponent } from './pages/payment/payment-success/payment-success.component';
 import { PaymentErrorComponent } from './pages/payment/payment-error/payment-error.component';
+import { Checkout1Component } from './pages/checkout/checkout-1.component';
+import { Checkout2Component } from './pages/checkout/checkout-2.component';
 
 const routes: Routes = [
   {
@@ -28,8 +29,12 @@ const routes: Routes = [
         component: CartComponent,
       },
       {
-        path: 'checkout/:checkout_id',
-        component: CheckoutComponent,
+        path: 'checkout/1/:checkout_id',
+        component: Checkout1Component,
+      },
+      {
+        path: 'checkout/2/:checkout_id',
+        component: Checkout2Component,
       },
       {
         path: 'payment/success',
