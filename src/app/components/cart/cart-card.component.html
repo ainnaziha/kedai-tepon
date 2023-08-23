@@ -1,0 +1,73 @@
+<mat-card class="cardWithShadow productcard overflow-hidden">
+  <mat-card-content>
+    <div class="row m-b-12">
+      <div class="col d-flex">
+        <img
+          [src]="cart.product.imageUrl"
+          alt="product-image"
+          width="50"
+        />
+      </div>
+      <div class="col-auto">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Cart Menu"
+        >
+          <mat-icon color="accent">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="cardWithShadow p-l-15 p-r-15">
+          <button mat-menu-item (click)="startEditing()" [disabled]="cart.isEditing">
+            <div class="row">
+              <mat-icon color="accent">edit</mat-icon> Edit
+            </div>
+          </button>
+          <button mat-menu-item (click)="deleteItem()" [disabled]="cart.isDeleting">
+            <span *ngIf="cart.isDeleting; else deleteButton">
+              <mat-progress-spinner
+                mode="indeterminate"
+                diameter="20"
+                color="accent"
+              ></mat-progress-spinner>
+            </span>
+            <ng-template #deleteButton>
+              <div class="row">
+                <mat-icon color="accent">delete</mat-icon> Delete
+              </div>
+            </ng-template>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+    <div class="mat-body-1">{{ cart.product.name }}</div>
+    <div class="mat-body-1">{{ cart.product.price.formattedWithSymbol }}</div>
+    <div class="row p-l-15 p-r-15">
+      <ng-container *ngIf="!cart.isEditing; else editMode">
+        Quantity: {{ cart.quantity }}
+      </ng-container>
+      <ng-template #editMode>
+          <mat-form-field appearance="outline">
+            <input matInput type="number" [(ngModel)]="cart.newQuantity" min="1" (keyup.enter)="saveChanges()" [disabled]="cart.product.isLoading" />
+          </mat-form-field>
+          <span *ngIf="cart.isLoading; else editButtons" class="m-l-8">
+            <mat-progress-spinner
+              mode="indeterminate"
+              diameter="20"
+              color="accent"
+            ></mat-progress-spinner>
+          </span>
+          <ng-template #editButtons>
+            <button mat-icon-button color="accent" (click)="saveChanges()" [disabled]="cart.newQuantity === null">
+              <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="cancelChanges()">
+                <mat-icon>cancel</mat-icon>
+            </button>
+          </ng-template>
+      </ng-template>
+    </div>
+    <div class="d-flex justify-content-end">
+      <div class="mat-body-1 f-w-600">Subtotal: {{ cart.lineTotal.formattedWithSymbol }}</div>
+    </div>
+  </mat-card-content>
+</mat-card>

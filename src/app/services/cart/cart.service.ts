@@ -12,10 +12,7 @@ import { Price } from 'src/app/models/price.model';
   providedIn: 'root'
 })
 export class CartService {
-  private cartItems: CartItem[] = [];
-  private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
-  cartItems$: Observable<CartItem[]> = this.cartItemsSubject.asObservable();
-
+  public cartItems: CartItem[] = [];
   cart: any;
 
   isLoading: boolean = false;
@@ -57,10 +54,8 @@ export class CartService {
         this.cartItems = await Promise.all(this.cart.line_items.map(async item => {
           return new CartItem(item);
         }));
-        this.cartItemsSubject.next(this.cartItems);
       } else {
         this.cartItems = [];
-        this.cartItemsSubject.next(this.cartItems);
       }
     } finally {
       this.isLoading = false;
@@ -109,7 +104,6 @@ export class CartService {
       this.cartItems = await Promise.all(cart.line_items.map(async item => {
         return new CartItem(item);
       }));
-      this.cartItemsSubject.next(this.cartItems);
       this.cart = cart;
     });  
   }
@@ -121,7 +115,6 @@ export class CartService {
       this.cartItems = await Promise.all(cart.line_items.map(async item => {
         return new CartItem(item);
       }));
-      this.cartItemsSubject.next(this.cartItems);
       this.cart = cart;
     });  
   }
