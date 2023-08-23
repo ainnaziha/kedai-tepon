@@ -31,6 +31,7 @@ import { PaymentSuccessComponent } from './pages/payment/payment-success/payment
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Checkout1Component } from './pages/checkout/checkout-1.component';
 import { Checkout2Component } from './pages/checkout/checkout-2.component';
+import { CartCardComponent } from './components/cart/cart-card.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { Checkout2Component } from './pages/checkout/checkout-2.component';
     Checkout1Component,
     Checkout2Component,
     PaymentErrorComponent,
-    PaymentSuccessComponent
+    PaymentSuccessComponent,
+    CartCardComponent
   ],
   imports: [
     BrowserModule,
