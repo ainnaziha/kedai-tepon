@@ -12,3 +12,5 @@ export const environment = {
     commerceApiKey: '',
     stripeKey: '',
   };
+
+  //rename to environment.ts
