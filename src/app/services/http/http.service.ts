@@ -12,7 +12,7 @@ export class HttpService {
 
     private get header() : HttpHeaders {
       return new HttpHeaders({
-        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`,
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user'))?.token}`,
       })
     }
 
