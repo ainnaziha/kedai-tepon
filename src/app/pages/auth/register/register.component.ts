@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 
 export class AppSideRegisterComponent implements OnInit {
   registrationForm: FormGroup;
+  errorMessage: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -17,16 +18,27 @@ export class AppSideRegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
+      userName: ['', [Validators.required]],
       userEmail: ['', [Validators.required, Validators.email]],
       userPassword: ['', [Validators.required, Validators.minLength(8)]],
+      userConfirmPassword: ['', Validators.required], 
     });
   }
 
   signUp() {
-    if (this.registrationForm.valid) {
+    const password = this.registrationForm.get('userPassword').value;
+    const confirm = this.registrationForm.get('userConfirmPassword').value;
+
+    this.errorMessage = '';
+    
+    if (this.registrationForm.valid && password == confirm) {
+      const name = this.registrationForm.get('userName').value;
       const email = this.registrationForm.get('userEmail').value;
-      const password = this.registrationForm.get('userPassword').value;
-      this.authService.SignUp(email, password, '');
+      this.authService.SignUp(email, password, name);
+    } else if (password != confirm) {
+      this.errorMessage = 'Password do not match.';
+    } else if (this.registrationForm.get('userPassword').hasError('minLength')) {
+      this.errorMessage = 'Password must be at least 8 characters long.';
     }
   }
 }

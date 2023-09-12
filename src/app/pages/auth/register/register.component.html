@@ -7,12 +7,19 @@
         <mat-card-content class="p-32">
           <form class="m-t-30" [formGroup]="registrationForm" ngNativeValidate>
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Name</mat-label
+            >
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="text" formControlName="userName" required />
+            </mat-form-field>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
               >Email Adddress</mat-label
             >
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="email" formControlName="userEmail" required />
             </mat-form-field>
-            <!-- password -->
+
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
               >Password</mat-label
             >
@@ -20,8 +27,15 @@
               <input matInput type="password" formControlName="userPassword" required />
             </mat-form-field>
 
-            <mat-error class="m-b-12" *ngIf="registrationForm.get('userPassword').hasError('minlength')">
-              Password must be at least 8 characters long.
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Confirm Password</mat-label
+            >
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password" formControlName="userConfirmPassword" required />
+            </mat-form-field>
+
+            <mat-error class="m-b-12" *ngIf="errorMessage">
+              {{ errorMessage }}
             </mat-error>
 
             <button mat-flat-button color="accent" class="w-100" type="submit" (click)="signUp()" >
