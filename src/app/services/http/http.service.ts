@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -10,19 +10,25 @@ export class HttpService {
     private http: HttpClient 
     ) { } 
 
-    public get(url: string, options?: any) { 
-      return this.http.get(`${environment.apiBaseUrl}/api/${url}`, options); 
+    private get header() : HttpHeaders {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`,
+      })
     }
 
-    public post(url: string, data: any, options?: any) { 
-      return this.http.post(`${environment.apiBaseUrl}/api/${url}`, data, options); 
+    public get(url: string) { 
+      return this.http.get(`${environment.apiBaseUrl}/api/${url}`, {'headers': this.header}); 
+    }
+
+    public post(url: string, data: any) { 
+      return this.http.post(`${environment.apiBaseUrl}/api/${url}`, data, {'headers': this.header}); 
     } 
 
-    public put(url: string, data: any, options?: any) { 
-      return this.http.put(`${environment.apiBaseUrl}/api/${url}`, data, options); 
+    public put(url: string, data: any) { 
+      return this.http.put(`${environment.apiBaseUrl}/api/${url}`, data, {'headers': this.header}); 
     } 
 
-    public delete(url: string, options?: any) { 
-      return this.http.delete(`${environment.apiBaseUrl}/api/${url}`, options); 
+    public delete(url: string) { 
+      return this.http.delete(`${environment.apiBaseUrl}/api/${url}`, {'headers': this.header}); 
     } 
 }
