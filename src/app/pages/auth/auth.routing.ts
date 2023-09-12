@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { AppSideLoginComponent } from './login/login.component';
-import { AppSideRegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 export const AuthRoutes: Routes = [
   {
@@ -9,11 +9,11 @@ export const AuthRoutes: Routes = [
     children: [
       {
         path: 'login',
-        component: AppSideLoginComponent,
+        component: LoginComponent,
       },
       {
         path: 'register',
-        component: AppSideRegisterComponent,
+        component: RegisterComponent,
       },
     ],
   },

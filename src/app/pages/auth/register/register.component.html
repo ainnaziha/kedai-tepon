@@ -38,8 +38,13 @@
               {{ errorMessage }}
             </mat-error>
 
-            <button mat-flat-button color="accent" class="w-100" type="submit" (click)="signUp()" >
-              Sign Up
+            <button mat-flat-button color="accent" class="w-100" type="submit" (click)="signUp()" [disabled]="authService.isRegistering" >
+              <div class="row align-items-center">
+                <span *ngIf="authService.isRegistering;" class="m-r-8">
+                  <mat-progress-spinner mode="indeterminate" diameter="20" color="primary"></mat-progress-spinner>
+                </span>
+                Sign Up
+              </div>
             </button>
             <!-- input -->
           </form>

@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class AppSideLoginComponent implements OnInit {
+export class LoginComponent implements OnInit {
   userEmail: string = ''; userPassword: string = '';
 
   constructor(

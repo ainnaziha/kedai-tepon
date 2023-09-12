@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   templateUrl: './register.component.html',
 })
 
-export class AppSideRegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
   errorMessage: string = '';
 

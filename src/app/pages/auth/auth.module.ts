@@ -14,8 +14,9 @@ import * as TablerIcons from 'angular-tabler-icons/icons';
 
 import { AuthRoutes } from './auth.routing';
 
-import { AppSideLoginComponent } from './login/login.component';
-import { AppSideRegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -29,10 +30,11 @@ import { AppSideRegisterComponent } from './register/register.component';
     FormsModule,
     ReactiveFormsModule,
     TablerIconsModule.pick(TablerIcons),
+    MatProgressSpinnerModule
   ],
   declarations: [
-    AppSideLoginComponent,
-    AppSideRegisterComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
 })
 export class AuthModule {}

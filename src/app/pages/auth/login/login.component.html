@@ -20,8 +20,13 @@
               <input matInput type="password" [(ngModel)]="userPassword" name="user-password" required />
             </mat-form-field>
 
-            <button mat-flat-button color="accent" class="w-100" type="submit" (click)="signIn()" >
-              Sign In
+            <button mat-flat-button color="accent" class="w-100" type="submit" (click)="signIn()" [disabled]="authService.isLoggingIn" >
+              <div class="row align-items-center">
+                <span *ngIf="authService.isLoggingIn;" class="m-r-8">
+                  <mat-progress-spinner mode="indeterminate" diameter="20" color="primary"></mat-progress-spinner>
+                </span>
+                Sign In
+              </div>
             </button>
             <!-- input -->
           </form>

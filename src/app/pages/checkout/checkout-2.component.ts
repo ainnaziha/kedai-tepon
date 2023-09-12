@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { CheckoutService } from 'src/app/services/checkout/checkout.service';
 import { StripeService } from 'src/app/services/stripe/stripe.service';
 

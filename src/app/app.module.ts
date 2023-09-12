@@ -50,7 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     Checkout2Component,
     PaymentErrorComponent,
     PaymentSuccessComponent,
-    CartCardComponent
+    CartCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,9 @@ import { HttpService } from '../http/http.service';
 })
 
 export class AuthService {
+  public isLoggingIn = false;
+  public isRegistering = false;
+
   constructor(
     public router: Router,
     private errorDialogService: ErrorDialogService,
@@ -22,30 +25,38 @@ export class AuthService {
   }
 
   SignIn(email: string, password: string) {
+    this.isLoggingIn = true;
+
     this.httpService.post('auth/login', {'email': email, 'password': password}).subscribe(
       (r) => {
         if (r['data'] != null) {
           const user = new User(r['data']);
           localStorage.setItem('user', JSON.stringify(user));
+          this.isLoggingIn = false;
           this.router.navigate(['/home']);
         }
       },
       (e) => {
+        this.isLoggingIn = false;
         this.errorDialogService.openDialog(e.error.message);
       }
     );
   }
 
   SignUp(email: string, password: string, name: string) {
+    this.isRegistering = true;
+
     this.httpService.post('auth/register', {'email': email, 'password': password, 'name': name}).subscribe(
       (r) => {
         if (r['data'] != null) {
           const user = new User(r['data']);
           localStorage.setItem('user', JSON.stringify(user));
+          this.isRegistering = false;
           this.router.navigate(['/home']);
         }
       },
       (e) => {
+        this.isRegistering = false;
         this.errorDialogService.openDialog(e.error.message);
       }
     );
