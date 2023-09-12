@@ -15,25 +15,4 @@ export class ErrorDialogService {
       data: { errorMessage }
     });
   }
-
-  openFirebaseAuthErrorDialog(error: any): void {
-    let errorMessage = error.message;
-
-    if (error.code) {
-      switch (error.code) {
-        case 'auth/user-not-found':
-        case 'auth/wrong-password':
-          errorMessage = 'Invalid password. Please check your credentials.';
-          break;
-        case 'auth/invalid-email':
-          errorMessage = 'Invalid email. Please check your email.';
-          break;
-        case 'auth/email-already-in-use':
-          errorMessage = 'Registration error: Email already registered. Please use another email.'
-          break;
-      }
-    }
-
-    this.openDialog(errorMessage);
-  }
 }

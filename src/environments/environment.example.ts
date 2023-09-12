@@ -11,6 +11,7 @@ export const environment = {
     },
     commerceApiKey: '',
     stripeKey: '',
-  };
+    apiBaseUrl: 'https://localhost:7027',
+};
 
-  //rename to environment.ts
+//rename to environment.ts

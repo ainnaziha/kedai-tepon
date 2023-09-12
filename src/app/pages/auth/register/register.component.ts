@@ -26,7 +26,7 @@ export class AppSideRegisterComponent implements OnInit {
     if (this.registrationForm.valid) {
       const email = this.registrationForm.get('userEmail').value;
       const password = this.registrationForm.get('userPassword').value;
-      this.authService.SignUp(email, password);
+      this.authService.SignUp(email, password, '');
     }
   }
 }

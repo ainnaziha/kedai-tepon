@@ -32,6 +32,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Checkout1Component } from './pages/checkout/checkout-1.component';
 import { Checkout2Component } from './pages/checkout/checkout-2.component';
 import { CartCardComponent } from './components/cart/cart-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { CartCardComponent } from './components/cart/cart-card.component';
     AngularFirestoreModule,
     AngularFireModule,
     GalleryModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HttpClientModule,
   ],
   exports: [TablerIconsModule],
   providers: [],

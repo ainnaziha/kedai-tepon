@@ -25,7 +25,7 @@ export class UserCartService {
 
   async getCartIdFromFirestore(): Promise<string | null> {
     const snapshot = await this.firestore.collection('carts')
-      .doc(this.authService.getUser.uid)
+      .doc(this.authService.getUser.id)
       .get()
       .toPromise();
 
@@ -39,11 +39,11 @@ export class UserCartService {
   createOrUpdateCart(cartId: string): Promise<void> {
     return this.firestore
       .collection('carts')
-      .doc(this.authService.getUser.uid)
+      .doc(this.authService.getUser.id)
       .set({ cart_id: cartId }, { merge: true });
   }
 
   deleteCart(): Promise<void> {
-    return this.firestore.collection('carts').doc(this.authService.getUser.uid).delete();
+    return this.firestore.collection('carts').doc(this.authService.getUser.id).delete();
   }
 }
