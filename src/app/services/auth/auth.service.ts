@@ -23,30 +23,30 @@ export class AuthService {
 
   SignIn(email: string, password: string) {
     this.httpService.post('auth/login', {'email': email, 'password': password}).subscribe(
-      (response) => {
-        if (response['data'] != null) {
-          const user = new User(response['data']);
+      (r) => {
+        if (r['data'] != null) {
+          const user = new User(r['data']);
           localStorage.setItem('user', JSON.stringify(user));
           this.router.navigate(['/home']);
         }
       },
-      (error) => {
-        this.errorDialogService.openDialog(error.resppnse.message);
+      (e) => {
+        this.errorDialogService.openDialog(e.error.message);
       }
     );
   }
 
   SignUp(email: string, password: string, name: string) {
     this.httpService.post('auth/register', {'email': email, 'password': password, 'name': name}).subscribe(
-      (response) => {
-        if (response['data'] != null) {
-          const user = new User(response['data']);
+      (r) => {
+        if (r['data'] != null) {
+          const user = new User(r['data']);
           localStorage.setItem('user', JSON.stringify(user));
           this.router.navigate(['/home']);
         }
       },
-      (error) => {
-        this.errorDialogService.openDialog(error.response.message);
+      (e) => {
+        this.errorDialogService.openDialog(e.error.message);
       }
     );
   }
