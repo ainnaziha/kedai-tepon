@@ -52,9 +52,8 @@ export class AuthService {
   }
 
   SignOut() {
-    // return this.afAuth.signOut().then(() => {
-    //   localStorage.removeItem('user');
-    // });
+    this.httpService.post('auth/logout', {});
+    localStorage.removeItem('user');
   }
 
   get getUser(): User | null {
