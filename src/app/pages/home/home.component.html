@@ -9,7 +9,19 @@
     </div>
     
     <div>
-        <h2 class="f-w-500 text-muted">Products</h2>
+        <div class="d-flex w-100 p-b-24">
+            <mat-card-title>Products</mat-card-title>
+            <div class="m-l-auto">
+              <mat-form-field class="theme-select" appearance="outline">
+                <mat-select placeholder="Category" (selectionChange)="onSelectCategory($event.value)">
+                    <mat-option [value]="null">Clear</mat-option>
+                    <mat-option *ngFor="let category of categoryService.categories" [value]="category.id">
+                        {{ category.name }}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
     </div>
     
     <div class="row">
