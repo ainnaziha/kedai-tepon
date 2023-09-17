@@ -18,12 +18,10 @@ import { Product } from 'src/app/models/product.model';
 
     async addToCart(): Promise<void> {
       this.product.isLoading = true;
-      console.log(this.product.isLoading);
       try {
         await this.cartService.addToCart(this.product);
       } finally {
         this.product.isLoading = false;
-        console.log(this.product.isLoading);
       }
     }
 
