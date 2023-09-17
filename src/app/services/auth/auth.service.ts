@@ -21,6 +21,10 @@ export class AuthService {
   
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
+    if (user && this.isTokenExpired(user)) {
+      localStorage.removeItem('user');
+      return false;
+    }
     return user !== null;
   }
 
@@ -68,6 +72,22 @@ export class AuthService {
   }
 
   get getUser(): User | null {
-    return JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && this.isTokenExpired(user)) {
+      localStorage.removeItem('user');
+      return null;
+    }
+    return user;
+  }
+
+  private isTokenExpired(user: User): boolean {
+    if (!user || !user.expiry) {
+      return true;
+    }
+    
+    const now = new Date();
+    const expirationDate = new Date(user.expiry);
+  
+    return now >= expirationDate;
   }
 }
