@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductDialogComponent } from './product-dialog.component';
 import { Product } from 'src/app/models/product.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.service';
+import { CustomDialogService } from 'src/app/services/custom-dialog/custom-dialog.service';
   
   @Component({
     selector: 'app-product-card',
@@ -15,7 +15,7 @@ import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.s
       public cartService: CartService,
       private dialog: MatDialog,
       private authService: AuthService,
-      private errorDialogService: ErrorDialogService,
+      private customDialogService: CustomDialogService,
     ) {}
 
     @Input() product: Product;
@@ -29,7 +29,7 @@ import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.s
           this.product.isLoading = false;
         }
       } else {
-        this.errorDialogService.openDialog('You need to be logged in to add to cart.');
+        this.customDialogService.openErrorDialog('You need to be logged in to add to cart.');
       }
     }
 

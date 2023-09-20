@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Product } from "src/app/models/product.model";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { CartService } from "src/app/services/cart/cart.service";
-import { ErrorDialogService } from "src/app/services/error-dialog/error-dialog.service";
+import { CustomDialogService } from "src/app/services/custom-dialog/custom-dialog.service";
 
 @Component({
     selector: 'app-product-dialog',
@@ -13,7 +13,7 @@ import { ErrorDialogService } from "src/app/services/error-dialog/error-dialog.s
     constructor(
         private cartService: CartService,
         private authService: AuthService,
-        private errorDialogService: ErrorDialogService,
+        private customDialogService: CustomDialogService,
         @Inject(MAT_DIALOG_DATA) public data: { product: Product}
     ) {}
 
@@ -26,7 +26,7 @@ import { ErrorDialogService } from "src/app/services/error-dialog/error-dialog.s
           this.data.product.isLoading = false;
         }
       } else {
-        this.errorDialogService.openDialog('You need to be logged in to add to cart.');
+        this.customDialogService.openErrorDialog('You need to be logged in to add to cart.');
       }
     }
   }

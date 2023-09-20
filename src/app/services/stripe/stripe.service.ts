@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
-import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+import { CustomDialogService } from '../custom-dialog/custom-dialog.service';
 import { CheckoutService } from '../checkout/checkout.service';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +12,7 @@ export class StripeService {
   private card: StripeCardElement;
 
   constructor(
-    private errorDialogService: ErrorDialogService,
+    private customDialogService: CustomDialogService,
     private checkoutService: CheckoutService
   ) {
     this.initializeStripe();
@@ -61,7 +61,7 @@ export class StripeService {
       });
       return result;
     } catch (error) {
-      this.errorDialogService.openDialog(error.message);
+      this.customDialogService.openErrorDialog(error.message);
       return null;
     }
   }
@@ -73,12 +73,12 @@ export class StripeService {
       if (token) {
         return token.id;
       } else if (error) {
-        this.errorDialogService.openDialog(error.message);
+        this.customDialogService.openErrorDialog(error.message);
         return null;
       }
       return null;
     } catch (error) {
-      this.errorDialogService.openDialog(error.message);
+      this.customDialogService.openErrorDialog(error.message);
       return null;
     }
   } 

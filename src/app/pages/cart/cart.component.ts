@@ -5,7 +5,7 @@ import { CartItem } from 'src/app/models/cart.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { CheckoutService } from 'src/app/services/checkout/checkout.service';
-import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.service';
+import { CustomDialogService } from 'src/app/services/custom-dialog/custom-dialog.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,10 +14,10 @@ import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.s
 export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
-    private errorDialogService: ErrorDialogService,
+    private customDialogService: CustomDialogService,
     private router: Router,
     private checkoutService: CheckoutService,
-    private authService: AuthService
+    private authService: AuthService,
    ) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -46,14 +46,25 @@ export class CartComponent implements OnInit {
       this.checkoutService.setCheckoutData(response);
       this.router.navigate(['/checkout/1', response.id]);
     } catch (e) {
-      this.errorDialogService.openDialog(e.message);
+      this.customDialogService.openErrorDialog(e.message);
     } finally {
       this.isChecking = false;
     }
   }
+
+  clearCart(): void {
+    this.customDialogService.openConfirmationDialog(
+      'Are you sure you want to empty the cart?', 
+      () => this.cartService.deleteCart(),
+    );
+  }
   
   get isLoading(): boolean {
     return this.cartService.isLoading;
+  } 
+
+  get isDeleting(): boolean {
+    return this.cartService.isDeleting;
   } 
 
   get cartItems(): CartItem[] {

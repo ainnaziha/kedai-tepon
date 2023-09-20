@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
-import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+import { CustomDialogService } from '../custom-dialog/custom-dialog.service';
 import { HttpService } from '../http/http.service';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(
     public router: Router,
-    private errorDialogService: ErrorDialogService,
+    private customDialogService: CustomDialogService,
     private httpService: HttpService,
   ) {}
   
@@ -41,7 +41,7 @@ export class AuthService {
       },
       (e) => {
         this.isLoggingIn = false;
-        this.errorDialogService.openDialog(e.error.message);
+        this.customDialogService.openErrorDialog(e.error.message);
       }
     );
   }
@@ -60,7 +60,7 @@ export class AuthService {
       },
       (e) => {
         this.isRegistering = false;
-        this.errorDialogService.openDialog(e.error.message);
+        this.customDialogService.openErrorDialog(e.error.message);
       }
     );
   }

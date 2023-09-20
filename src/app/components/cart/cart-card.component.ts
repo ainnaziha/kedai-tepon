@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from '../../services/cart/cart.service';
 import { CartItem } from 'src/app/models/cart.model';
+import { CustomDialogService } from 'src/app/services/custom-dialog/custom-dialog.service';
   
   @Component({
     selector: 'app-cart-card',
@@ -9,17 +10,23 @@ import { CartItem } from 'src/app/models/cart.model';
   export class CartCardComponent {
     constructor(
       private cartService: CartService,
+      private customDialogService: CustomDialogService
     ) {}
 
     @Input() cart: CartItem;
 
     async deleteItem() {
-      this.cart.isDeleting = true;
-      try {
-        await this.cartService.updateCart(this.cart.id, 0);
-      } finally {
-        this.cart.isDeleting = false;
-      }
+      this.customDialogService.openConfirmationDialog(
+        'Are you sure you want to delete this item?', 
+        async () => {
+          this.cart.isDeleting = true;
+          try {
+            await this.cartService.updateCart(this.cart.id, 0);
+          } finally {
+            this.cart.isDeleting = false;
+          }
+        },
+      );
     }
 
     startEditing(): void {

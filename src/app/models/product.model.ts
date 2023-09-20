@@ -15,7 +15,6 @@ export class Product {
     this.description = data.description;
     this.image = `assets/${data.image}`;
     this.formattedPrice = data.formattedPrice;
-    this.category = data.categroy == null ? null : new Category(data.category);
-
+    this.category = new Category(data.category ?? {});
   }
 }

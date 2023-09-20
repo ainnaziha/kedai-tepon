@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cart } from 'src/app/models/cart.model';
-import { ErrorDialogService } from '../error-dialog/error-dialog.service';
+import { CustomDialogService } from '../custom-dialog/custom-dialog.service';
 import { HttpService } from '../http/http.service';
 
 @Injectable({
@@ -11,9 +11,10 @@ export class CartService {
   public cart: Cart = new Cart({});
 
   isLoading: boolean = false;
+  isDeleting: boolean = false;
 
   constructor(
-    private errorDialogService: ErrorDialogService,
+    private customDialogService: CustomDialogService,
     private httpService: HttpService,
   ) {}
 
@@ -25,7 +26,7 @@ export class CartService {
         }
       },
       (e) => {
-        this.errorDialogService.openDialog(e.error.message);
+        this.customDialogService.openErrorDialog(e.error.message);
       }
     );
   }
@@ -43,7 +44,7 @@ export class CartService {
       },
       (e) => {
         this.isLoading = false;
-        this.errorDialogService.openDialog(e.error.message);
+        this.customDialogService.openErrorDialog(e.error.message);
       }
     );
   }
@@ -55,10 +56,12 @@ export class CartService {
           if (r['data'] != null) {
             this.cart = new Cart(r['data']);
             this.cartTotal = this.cart.items.length;
+            resolve();
           }
         },
         (e) => {
-          this.errorDialogService.openDialog(e.error.message);
+          this.customDialogService.openErrorDialog(e.error.message);
+          reject(e);
         }
       );
     });
@@ -75,7 +78,7 @@ export class CartService {
           }
         },
         (e) => {
-          this.errorDialogService.openDialog(e.error.message);
+          this.customDialogService.openErrorDialog(e.error.message);
           reject(e);
         }
       );
@@ -83,19 +86,20 @@ export class CartService {
   }
 
   async deleteCart(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.httpService.delete('cart/delete').subscribe(
-        (r) => {
-          if (r['data'] != null) {
-            this.cart = new Cart({});
-            this.cartTotal = 0;
-          }
-        },
-        (e) => {
-          this.errorDialogService.openDialog(e.error.message);
+    this.isDeleting = true;
+    this.httpService.delete('cart/delete').subscribe(
+      (r) => {
+        if (r['data'] != null) {
+          this.cart = new Cart({});
+          this.cartTotal = 0;
         }
-      );
-    });
+        this.isDeleting = false;
+      },
+      (e) => {
+        this.isDeleting = false;
+        this.customDialogService.openErrorDialog(e.error.message);
+      }
+    );
   }
 
   clear() {

@@ -29,6 +29,7 @@ import { Checkout1Component } from './pages/checkout/checkout-1.component';
 import { Checkout2Component } from './pages/checkout/checkout-2.component';
 import { CartCardComponent } from './components/cart/cart-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProductCardComponent,
     NotFoundComponent,
     ErrorDialogComponent,
+    ConfirmationDialogComponent,
     CartComponent,
     ProductDialogComponent,
     Checkout1Component,
