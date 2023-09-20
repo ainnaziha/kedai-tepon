@@ -1,20 +1,28 @@
-import { Price } from "./price.model";
 import { Product } from "./product.model";
 
-export class CartItem {
-    id: string;
-    product: Product;
-    quantity: number;
-    lineTotal: Price;
-    isEditing?: boolean;
-    newQuantity?: number;
-    isLoading?: boolean;
-    isDeleting?: boolean;
+export class Cart {
+  total: string;
+  items: CartItem[];
 
-    constructor(data: any) {
-      this.id = data.id;
-      this.product = new Product(data);
-      this.quantity = data.quantity;
-      this.lineTotal = new Price(data.line_total);
+  constructor(data: any) {
+    this.total = data.total ?? 'RM 0.00';
+    this.items = data.items == null ? [] : data.items.map((item) => new CartItem(item));
+  }
+}
+export class CartItem {
+  id: number;
+  product: Product;
+  quantity: number;
+  subtotal: string;
+  isEditing?: boolean;
+  newQuantity?: number;
+  isLoading?: boolean;
+  isDeleting?: boolean;
+
+  constructor(data: any) {
+    this.id = data.id;
+    this.product = new Product(data.product);
+    this.quantity = data.quantity;
+    this.subtotal = data.subtotal;
     }
 }

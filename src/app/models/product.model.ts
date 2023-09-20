@@ -6,7 +6,7 @@ export class Product {
   description: string;
   image: string;
   formattedPrice: string;
-  category: Category;
+  category: Category | null;
   isLoading?: boolean;
 
   constructor(data: any) {
@@ -15,7 +15,6 @@ export class Product {
     this.description = data.description;
     this.image = `assets/${data.image}`;
     this.formattedPrice = data.formattedPrice;
-    this.category = new Category(data.category);
-
+    this.category = new Category(data.category ?? {});
   }
 }

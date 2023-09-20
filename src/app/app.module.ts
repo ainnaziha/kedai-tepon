@@ -14,10 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { BodyComponent } from './layout/body/body.component';
 
-import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { GalleryModule } from 'ng-gallery';
 import { HomeComponent } from './pages/home/home.component';
@@ -33,6 +29,7 @@ import { Checkout1Component } from './pages/checkout/checkout-1.component';
 import { Checkout2Component } from './pages/checkout/checkout-2.component';
 import { CartCardComponent } from './components/cart/cart-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProductCardComponent,
     NotFoundComponent,
     ErrorDialogComponent,
+    ConfirmationDialogComponent,
     CartComponent,
     ProductDialogComponent,
     Checkout1Component,
@@ -61,11 +59,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFirestoreModule,
-    AngularFireModule,
     GalleryModule,
     MatProgressSpinnerModule,
     HttpClientModule,

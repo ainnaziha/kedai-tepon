@@ -3,7 +3,29 @@
 </div>
   <mat-card class="cardWithShadow theme-card">
     <mat-card-header>
-      <mat-card-title class="m-b-0">Shopping Cart</mat-card-title>
+      <div class="d-flex w-100 p-b-24">
+        <mat-card-title class="m-b-0">Shopping Cart</mat-card-title>
+        <div class="m-l-auto">
+          <button
+            mat-flat-button
+            color="warn"
+            matTooltip="Empty Cart"
+            (click)="clearCart()"
+            [disabled]="isDeleting || !cartAvailable"
+          >
+            <div class="row m-x-4">
+              <span *ngIf="isDeleting">
+                <mat-progress-spinner
+                  mode="indeterminate"
+                  diameter="20"
+                  color="warn"
+                ></mat-progress-spinner>
+              </span>
+              Empty Cart
+            </div>
+          </button>
+        </div>
+      </div>
     </mat-card-header>
     <mat-card-content class="b-t-1">  
       <div class="row">
