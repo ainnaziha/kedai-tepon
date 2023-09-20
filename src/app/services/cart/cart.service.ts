@@ -31,58 +31,74 @@ export class CartService {
   }
 
   async getCart() {
+    this.isLoading = true;
     this.httpService.get('cart').subscribe(
       (r) => {
-        console.log(r);
         if (r['data'] != null) {
           this.cart = new Cart(r['data']);
           this.cartTotal = this.cart.items.length;
         }
+
+        this.isLoading = false;
       },
       (e) => {
+        this.isLoading = false;
         this.errorDialogService.openDialog(e.error.message);
       }
     );
   }
 
   async addToCart(productId: number): Promise<void> {
-    this.httpService.post('cart/add', {'productId': productId}).subscribe(
-      (r) => {
-        if (r['data'] != null) {
-          this.cart = new Cart(r['data']);
-          this.cartTotal = this.cart.items.length;
+    return new Promise<void>((resolve, reject) => {
+      this.httpService.post('cart/add', {'productId': productId}).subscribe(
+        (r) => {
+          if (r['data'] != null) {
+            this.cart = new Cart(r['data']);
+            this.cartTotal = this.cart.items.length;
+          }
+        },
+        (e) => {
+          this.errorDialogService.openDialog(e.error.message);
         }
-      },
-      (e) => {
-        this.errorDialogService.openDialog(e.error.message);
-      }
-    );
+      );
+    });
   }
 
+  async updateCart(cartId: number, quantity: number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.httpService.put('cart/update', {'cartId': cartId, 'quantity': quantity}).subscribe(
+        (r) => {
+          if (r['data'] != null) {
+            this.cart = new Cart(r['data']);
+            this.cartTotal = this.cart.items.length;
+            resolve();
+          }
+        },
+        (e) => {
+          this.errorDialogService.openDialog(e.error.message);
+          reject(e);
+        }
+      );
+    });
+  }
+
+  async deleteCart(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.httpService.delete('cart/delete').subscribe(
+        (r) => {
+          if (r['data'] != null) {
+            this.cart = new Cart({});
+            this.cartTotal = 0;
+          }
+        },
+        (e) => {
+          this.errorDialogService.openDialog(e.error.message);
+        }
+      );
+    });
+  }
 
   clear() {
-    this.cart = null;
+    this.cart = new Cart({});
   }
-
-  // async updateCart(id: string, quantity: number): Promise<void> {
-  //   const index = this.cartItems.findIndex(item => item.id === id);
-
-  //   await this.commerceService.commerce.cart.update(id, { quantity: quantity}).then(async (cart) => {
-  //     this.cartItems = await Promise.all(cart.line_items.map(async item => {
-  //       return new CartItem(item);
-  //     }));
-  //     this.cart = cart;
-  //   });  
-  // }
-
-  // async deleteCart(id: string): Promise<void> {
-  //   const index = this.cartItems.findIndex(item => item.id === id);
-
-  //   await this.commerceService.commerce.cart.remove(id).then(async (cart) => {
-  //     this.cartItems = await Promise.all(cart.line_items.map(async item => {
-  //       return new CartItem(item);
-  //     }));
-  //     this.cart = cart;
-  //   });  
-  // }
 }
