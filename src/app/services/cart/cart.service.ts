@@ -7,12 +7,14 @@ import { UserCartService } from '../user-cart/user-cart.service';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { Price } from 'src/app/models/price.model';
+import { HttpService } from '../http/http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   public cartItems: CartItem[] = [];
+  public cartTotal: number = 0;
   cart: any;
 
   isLoading: boolean = false;
@@ -22,27 +24,33 @@ export class CartService {
     private authService: AuthService,
     private userCartService: UserCartService,
     private errorDialogService: ErrorDialogService,
+    private httpService: HttpService,
+
   ) {}
 
-  async addToCart(product: Product): Promise<void> {
-    await this.getUserCart();
-    if (this.cart) {
-      const existingCartItemIndex = this.cartItems.findIndex(item => item.product.id === product.id);
-      if (existingCartItemIndex !== -1) {
-        this.cartItems[existingCartItemIndex].quantity += 1;
-        await this.commerceService.commerce.cart.update(this.cartItems[existingCartItemIndex].id, { quantity: this.cartItems[existingCartItemIndex].quantity}).then(cart => this.cart = cart);
-      } else {
-        await this.commerceService.commerce.cart.add(product.id, 1)
-        .then(cart => {
-          this.cart = cart;
-          this.cartItems = this.cart.line_items.map(item => {
-            return new CartItem(item);
-          });
-        });
+  async getTotalCart() {
+    this.httpService.get('cart/total').subscribe(
+      (r) => {
+        if (r['data'] != null) {
+          this.cartTotal = r['data'];
+        }
+      },
+      (e) => {
+        this.errorDialogService.openDialog(e.error.message);
       }
-    } else {
-      this.errorDialogService.openDialog('You need to be logged in to add to cart.');
-    }
+    );
+  }
+
+
+  async addToCart(productId: number): Promise<void> {
+    this.httpService.post('cart/add', {'productId': productId}).subscribe(
+      (r) => {
+
+      },
+      (e) => {
+        this.errorDialogService.openDialog(e.error.message);
+      }
+    );
   }
 
   async getCartItems(): Promise<void> {
