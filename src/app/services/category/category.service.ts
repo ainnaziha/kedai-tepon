@@ -7,7 +7,6 @@ import { Category } from 'src/app/models/category.model';
 })
 export class CategoryService {
   public categories: Category[] = [];
-  public selectedCategory: number | null;
 
   isLoading: boolean = false;
 

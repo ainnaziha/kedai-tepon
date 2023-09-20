@@ -1,6 +1,6 @@
 <mat-dialog-content class="mat-typography">
   <mat-card class="cardWithShadow productcard overflow-hidden">
-    <img [src]="data.product.imageUrl" alt="imgSrc" class="w-100" mat-card-image />
+    <img [src]="data.product.image" alt="imgSrc" class="w-100" mat-card-image />
     <mat-card-content class="p-b-24 p-t-12 position-relative">
       <button (click)="addToCart()" mat-mini-fab color="accent" class="icon-40 cart-btn" matTooltip="Add to Cart" [disabled]="data.product.isLoading">
         <span *ngIf="data.product.isLoading; else cartIcon">
@@ -15,12 +15,13 @@
         </ng-template>
       </button>
       <mat-card-title class="mat-headline-2 f-s-16">{{ data.product.name }}</mat-card-title>
+      <mat-card-title class="mat-headline-2 f-s-12">{{ data.product.category.name}}</mat-card-title>
       <mat-card-subtitle>
         <p [innerHTML]="data.product.description"></p>
       </mat-card-subtitle>
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
-          <h6 class="mat-body-2 f-w-600">{{ data.product.price.formattedWithSymbol }}</h6>
+          <h6 class="mat-body-2 f-w-600">{{ data.product.formattedPrice }}</h6>
         </div>
       </div>
     </mat-card-content>

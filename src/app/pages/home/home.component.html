@@ -4,13 +4,13 @@
     <div>
         <h2 class="f-w-500 text-muted f-s-30 text-center">Connecting you world, electronically</h2>
     </div>
-    <div *ngIf="products.length > 0" class="m-b-30">
-        <gallery [items]="items" [thumb]="false" dots="true" autoPlay="true"></gallery>
+    <div *ngIf="productService.carouselItems.length > 0" class="m-b-30">
+        <gallery [items]="productService.carouselItems" [thumb]="false" dots="true" autoPlay="true"></gallery>
     </div>
     
     <div>
         <div class="d-flex w-100 p-b-24">
-            <mat-card-title>Products</mat-card-title>
+            <mat-card-title class="mat-headline-2 f-s-24">Products</mat-card-title>
             <div class="m-l-auto">
               <mat-form-field class="theme-select" appearance="outline">
                 <mat-select placeholder="Category" (selectionChange)="onSelectCategory($event.value)">
@@ -24,8 +24,12 @@
           </div>
     </div>
     
+    <div *ngIf="productService.products.length == 0" class="m-b-30">
+      No product under this category :)
+    </div>
+
     <div class="row">
-        <div class="col-sm-6 col-lg-3" *ngFor="let p of products">
+        <div class="col-sm-6 col-lg-3" *ngFor="let p of productService.products">
           <app-product-card [product]="p"></app-product-card>
         </div>
     </div>
