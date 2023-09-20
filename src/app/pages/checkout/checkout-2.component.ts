@@ -45,6 +45,6 @@ export class Checkout2Component implements OnInit {
     if (data && (this.checkoutId != data.id)) {
       data = null;
     }
-    return data ? `Total Price: ${data.total.formattedWithSymbol}` : 'No order detected';
+    return data ? `Total Price: ${data.total}` : 'No order detected';
   }
 }

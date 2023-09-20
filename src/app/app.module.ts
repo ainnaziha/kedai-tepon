@@ -14,10 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { BodyComponent } from './layout/body/body.component';
 
-import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
 import { GalleryModule } from 'ng-gallery';
 import { HomeComponent } from './pages/home/home.component';
@@ -61,11 +57,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFirestoreModule,
-    AngularFireModule,
     GalleryModule,
     MatProgressSpinnerModule,
     HttpClientModule,

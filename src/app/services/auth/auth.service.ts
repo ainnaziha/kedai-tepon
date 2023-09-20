@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { GoogleAuthProvider, user } from '@angular/fire/auth';
 import { User } from 'src/app/models/user.model';
 import { ErrorDialogService } from '../error-dialog/error-dialog.service';
 import { HttpService } from '../http/http.service';
