@@ -16,7 +16,7 @@ import { CartItem } from 'src/app/models/cart.model';
     async deleteItem() {
       this.cart.isDeleting = true;
       try {
-        await this.cartService.deleteCart(this.cart.id);
+        //await this.cartService.deleteCart(this.cart.id);
       } finally {
         this.cart.isDeleting = false;
       }
@@ -33,7 +33,7 @@ import { CartItem } from 'src/app/models/cart.model';
       if (newQuantity !== null && newQuantity > 0 && newQuantity !== this.cart.quantity) {
         try {
           this.cart.isLoading = true;
-          await this.cartService.updateCart(this.cart.id, newQuantity);
+          //await this.cartService.updateCart(this.cart.id, newQuantity);
         } finally {
           this.cart.isLoading = false;
           this.cart.isEditing = false;

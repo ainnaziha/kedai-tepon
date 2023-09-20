@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { CheckoutService } from 'src/app/services/checkout/checkout.service';
 import { ErrorDialogService } from 'src/app/services/error-dialog/error-dialog.service';
@@ -15,7 +16,8 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private errorDialogService: ErrorDialogService,
     private router: Router,
-    private checkoutService: CheckoutService
+    private checkoutService: CheckoutService,
+    private authService: AuthService
    ) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -23,22 +25,24 @@ export class CartComponent implements OnInit {
   isChecking: boolean = false; 
 
   ngOnInit() {
-    this.cartService.getCartItems();
+    if (this.authService.isLoggedIn) {
+      this.cartService.getCart();
+    }
   }
 
   get total(): string {
-    return this.cartService.subTotal?.formattedWithSymbol ?? '';
+    return this.cartService.cart.total;
   }
 
   get cartAvailable(): boolean {
-    return (this.cartService.cart?.total_items ?? []) > 0;
+    return this.cartService.cart.items.length > 0;
   }
 
   async checkOut() {
     this.isChecking = true;
      
     try {
-      const response = await this.checkoutService.generateCheckoutToken(this.cartService.cart.id);
+      const response = await this.checkoutService.generateCheckoutToken('');
       this.checkoutService.setCheckoutData(response);
       this.router.navigate(['/checkout/1', response.id]);
     } catch (e) {
@@ -53,6 +57,6 @@ export class CartComponent implements OnInit {
   } 
 
   get cartItems(): CartItem[] {
-    return this.cartService.cartItems;
+    return this.cartService.cart.items;
   }
 }
