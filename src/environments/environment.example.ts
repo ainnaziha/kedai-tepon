@@ -9,7 +9,6 @@ export const environment = {
         appId: "",
         measurementId: ""
     },
-    commerceApiKey: '',
     stripeKey: '',
     apiBaseUrl: 'https://localhost:7027',
 };
