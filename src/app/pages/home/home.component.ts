@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service'
-import { CartService } from 'src/app/services/cart/cart.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -11,7 +10,6 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class HomeComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private cartService: CartService,
     public categoryService: CategoryService,
     public productService: ProductService
     ) {}
