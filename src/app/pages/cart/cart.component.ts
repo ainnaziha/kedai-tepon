@@ -30,8 +30,8 @@ export class CartComponent implements OnInit {
     }
   }
 
-  get total(): string {
-    return this.cartService.cart.total;
+  get totalFormatted(): string {
+    return this.cartService.cart.totalFormatted;
   }
 
   get cartAvailable(): boolean {
