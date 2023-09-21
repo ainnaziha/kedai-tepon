@@ -32,7 +32,7 @@ export class Checkout2Component implements OnInit {
   }
 
   async handlePayment() {
-    this.stripeService.handlePayment(this.orderNo);
+    this.stripeService.handlePayment();
   }
 
   get isLoad() {

@@ -39,14 +39,14 @@ export class StripeService {
     this.card.mount(elementRef);
   }
 
-  async handlePayment(checkoutId: string) {
+  async handlePayment() {
     this.isLoad = true;
     try {
       const paymentMethodResult = await this.createPaymentMethod();
 
       if (paymentMethodResult) {
-        const paymentMethodId = paymentMethodResult.paymentMethod.id;
-        //await this.checkoutService.captureOrder(paymentMethodId, checkoutId);
+        console.log(paymentMethodResult);
+        await this.checkoutService.completeOrder();
       }
     } finally {
       this.isLoad = false;
@@ -65,21 +65,4 @@ export class StripeService {
       return null;
     }
   }
-
-  async createPaymentToken(): Promise<string | null> {
-
-    try {
-      const { token, error } = await this.stripe.createToken(this.card);
-      if (token) {
-        return token.id;
-      } else if (error) {
-        this.customDialogService.openErrorDialog(error.message);
-        return null;
-      }
-      return null;
-    } catch (error) {
-      this.customDialogService.openErrorDialog(error.message);
-      return null;
-    }
-  } 
 }
