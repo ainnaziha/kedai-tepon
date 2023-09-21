@@ -45,7 +45,6 @@ export class StripeService {
       const paymentMethodResult = await this.createPaymentMethod();
 
       if (paymentMethodResult) {
-        console.log(paymentMethodResult);
         await this.checkoutService.completeOrder();
       }
     } finally {

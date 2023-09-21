@@ -16,7 +16,7 @@ export class CheckoutService {
     private customDialogService: CustomDialogService
   ) {}
 
-  async checkout(total: string, name: string, email: string): Promise<void> {
+  async checkout(total: string, name: string, email: string, cartIds: number[]): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this.httpService.post('order/checkout', {}).subscribe(
         (r) => {
@@ -25,6 +25,7 @@ export class CheckoutService {
             this.checkoutData.total = total;
             this.checkoutData.name = name;
             this.checkoutData.email = email;
+            this.checkoutData.cartIds = cartIds;
             resolve();
           }
         },
@@ -43,7 +44,6 @@ export class CheckoutService {
           this.router.navigate(['/payment/success']);
         },
         (e) => {
-          this.customDialogService.openErrorDialog(e.error.message);
           this.checkoutData = null;
           this.router.navigate(['/payment/error']);
         }

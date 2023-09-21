@@ -42,7 +42,8 @@ export class CartComponent implements OnInit {
     this.isChecking = true;
      
     try {
-      await this.checkoutService.checkout(this.cartService.cart.total, this.authService.getUser.displayName, this.authService.getUser.email);
+      await this.checkoutService.checkout(this.cartService.cart.total, this.authService.getUser.displayName, 
+        this.authService.getUser.email, this.cartService.cart.getItemIds());
       this.router.navigate(['/checkout/1', this.checkoutService.checkoutData.orderNo]);
     } finally {
       this.isChecking = false;

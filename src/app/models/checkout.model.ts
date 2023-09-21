@@ -7,6 +7,7 @@ export class Checkout {
   email: string;
   street: string;
   town: string;
+  cartIds: number[];
 
   constructor(data: any) {
     this.id = data.id;
@@ -17,5 +18,6 @@ export class Checkout {
     this.email = data.email ?? '';
     this.town = data.town ?? '';
     this.street = data.street ?? '';
+    this.cartIds = [];
   }
 }

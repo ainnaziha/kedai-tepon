@@ -10,6 +10,10 @@ export class Cart {
     this.totalFormatted = data.totalFormatted ?? 'RM 0.00';
     this.items = data.items == null ? [] : data.items.map((item) => new CartItem(item));
   }
+
+  getItemIds(): number[] {
+    return this.items.map((item) => item.id);
+  }
 }
 export class CartItem {
   id: number;
@@ -26,5 +30,5 @@ export class CartItem {
     this.product = new Product(data.product);
     this.quantity = data.quantity;
     this.subtotal = data.subtotal;
-    }
+  }
 }
