@@ -43,7 +43,7 @@ export class CartComponent implements OnInit {
      
     try {
       await this.checkoutService.checkout(this.cartService.cart.total, this.authService.getUser.displayName, this.authService.getUser.email);
-      this.router.navigate(['/checkout/1', this.checkoutService.checkoutData.id]);
+      this.router.navigate(['/checkout/1', this.checkoutService.checkoutData.orderNo]);
     } finally {
       this.isChecking = false;
     }

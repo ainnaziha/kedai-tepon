@@ -21,6 +21,9 @@ export class Checkout2Component implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.orderNo = params.get('order_no');
+      if (this.checkoutService.checkoutData == null || this.checkoutService.checkoutData.orderNo != this.orderNo) {
+        this.router.navigate(['/cart']);
+      }
     });
   }
 

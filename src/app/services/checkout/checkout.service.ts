@@ -21,7 +21,6 @@ export class CheckoutService {
       this.httpService.post('order/checkout', {}).subscribe(
         (r) => {
           if (r['data'] != null) {
-            console.log(r);
             this.checkoutData = new Checkout(r['data']);
             this.checkoutData.total = total;
             this.checkoutData.name = name;
