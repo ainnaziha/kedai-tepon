@@ -46,7 +46,7 @@ export class StripeService {
 
       if (paymentMethodResult) {
         const paymentMethodId = paymentMethodResult.paymentMethod.id;
-        await this.checkoutService.captureOrder(paymentMethodId, checkoutId);
+        //await this.checkoutService.captureOrder(paymentMethodId, checkoutId);
       }
     } finally {
       this.isLoad = false;

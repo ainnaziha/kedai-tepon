@@ -29,11 +29,11 @@ const routes: Routes = [
         component: CartComponent,
       },
       {
-        path: 'checkout/1/:checkout_id',
+        path: 'checkout/1/:order_no',
         component: Checkout1Component,
       },
       {
-        path: 'checkout/2/:checkout_id',
+        path: 'checkout/2/:order_no',
         component: Checkout2Component,
       },
       {

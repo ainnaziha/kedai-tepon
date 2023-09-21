@@ -21,22 +21,22 @@
             <form ngNativeValidate>
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Name</mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                    <input matInput [(ngModel)]="shipping.name" name="user-name" required />
+                    <input matInput [(ngModel)]="checkoutService.checkoutData.name" name="user-name" required />
                 </mat-form-field>
 
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email Adddress</mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                    <input matInput type="email" [(ngModel)]="shipping.email" name="user-email" required />
+                    <input matInput type="email" [(ngModel)]="checkoutService.checkoutData.email" name="user-email" required />
                 </mat-form-field>
 
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Street</mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                    <input matInput [(ngModel)]="shipping.street" name="user-street" required />
+                    <input matInput [(ngModel)]="checkoutService.checkoutData.street" name="user-street" required />
                 </mat-form-field>
 
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Town</mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                    <input matInput [(ngModel)]="shipping.town" name="user-town" required />
+                    <input matInput [(ngModel)]="checkoutService.checkoutData.town" name="user-town" required />
                 </mat-form-field>
 
                 <div class="d-flex justify-content-center align-items-center m-t-24">

@@ -1,85 +1,80 @@
 import { Injectable } from '@angular/core';
-import { CheckoutData } from 'src/app/models/checkout-data.model';
-import { Order } from 'src/app/models/order.model';
 import { Router } from '@angular/router';
-import { CartService } from '../cart/cart.service';
-import { Shipping } from 'src/app/models/shipping.model';
+import { Checkout } from 'src/app/models/checkout.model';
+import { HttpService } from '../http/http.service';
+import { CustomDialogService } from '../custom-dialog/custom-dialog.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
-  private checkoutData?: CheckoutData;
-  private order?: Order;
-  private shipping?: Shipping;
-
+  public checkoutData?: Checkout | null;
+  
   constructor(
     private router: Router,
-    private cartService: CartService
+    private httpService: HttpService,
+    private customDialogService: CustomDialogService
   ) {}
 
-  setCheckoutData(data?: CheckoutData) {
-    this.checkoutData = data;
+  async checkout(total: string, name: string, email: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.httpService.post('order/checkout', {}).subscribe(
+        (r) => {
+          if (r['data'] != null) {
+            console.log(r);
+            this.checkoutData = new Checkout(r['data']);
+            this.checkoutData.total = total;
+            this.checkoutData.name = name;
+            this.checkoutData.email = email;
+            resolve();
+          }
+        },
+        (e) => {
+          this.customDialogService.openErrorDialog(e.error.message);
+          reject(e);
+        }
+      );
+    });
   }
 
-  get getCheckoutData() {
-    return this.checkoutData;
-  }
+  // async generateCheckoutToken(id: string): Promise<CheckoutData | null> {
+  //   const response = null;
+  //   return response ? new CheckoutData(response) : null;
+  // }
 
-  setOrder(order?: Order) {
-    this.order = order;
-  }
-
-  get getOrder() {
-    return this.order;
-  }
-
-  async generateCheckoutToken(id: string): Promise<CheckoutData | null> {
-    const response = null;
-    return response ? new CheckoutData(response) : null;
-  }
-
-  async captureOrder(paymentId: string, checkoutToken: string) {
-    try {
-      // const response = await this.commerceService.commerce.checkout.capture(checkoutToken, {
-      //   customer: {
-      //     firstname: this.shipping.name,
-      //     email: this.shipping.email,
-      //   },
-      //   shipping: {
-      //     name: this.shipping.name,
-      //     street: this.shipping.street,
-      //     town_city: this.shipping.town,
-      //     country: 'MY',
-      //   },
-      //   fulfillment: {
-      //     shipping_method: this.checkoutData.shippingMethod,
-      //   },
-      //   payment: {
-      //     gateway: 'stripe',
-      //     stripe: {
-      //       payment_method_id: paymentId,
-      //     },
-      //   },
-      // });
+  // async captureOrder(paymentId: string, checkoutToken: string) {
+  //   try {
+  //     // const response = await this.commerceService.commerce.checkout.capture(checkoutToken, {
+  //     //   customer: {
+  //     //     firstname: this.shipping.name,
+  //     //     email: this.shipping.email,
+  //     //   },
+  //     //   shipping: {
+  //     //     name: this.shipping.name,
+  //     //     street: this.shipping.street,
+  //     //     town_city: this.shipping.town,
+  //     //     country: 'MY',
+  //     //   },
+  //     //   fulfillment: {
+  //     //     shipping_method: this.checkoutData.shippingMethod,
+  //     //   },
+  //     //   payment: {
+  //     //     gateway: 'stripe',
+  //     //     stripe: {
+  //     //       payment_method_id: paymentId,
+  //     //     },
+  //     //   },
+  //     // });
       
-      // const order = new Order(response);
-      // this.order = order;
-      // this.checkoutData = null;
-      // this.cartService.clear();
-      // this.userCartService.deleteCart();
-      this.router.navigate(['/payment/success']);
-    } catch (error) {
-      this.checkoutData = null;
-      this.router.navigate(['/payment/error']);
-    }
-  }
-
-  setShippingDetails(shipping: Shipping) {
-    this.shipping = shipping;
-  }
-
-  get getShipping() {
-    return this.shipping;
-  }
+  //     // const order = new Order(response);
+  //     // this.order = order;
+  //     // this.checkoutData = null;
+  //     // this.cartService.clear();
+  //     // this.userCartService.deleteCart();
+  //     this.router.navigate(['/payment/success']);
+  //   } catch (error) {
+  //     this.checkoutData = null;
+  //     this.router.navigate(['/payment/error']);
+  //   }
+  // }
 }

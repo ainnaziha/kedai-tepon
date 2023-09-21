@@ -42,11 +42,8 @@ export class CartComponent implements OnInit {
     this.isChecking = true;
      
     try {
-      const response = await this.checkoutService.generateCheckoutToken('');
-      this.checkoutService.setCheckoutData(response);
-      this.router.navigate(['/checkout/1', response.id]);
-    } catch (e) {
-      this.customDialogService.openErrorDialog(e.message);
+      await this.checkoutService.checkout(this.cartService.cart.total, this.authService.getUser.displayName, this.authService.getUser.email);
+      this.router.navigate(['/checkout/1', this.checkoutService.checkoutData.id]);
     } finally {
       this.isChecking = false;
     }

@@ -9,9 +9,9 @@
           </svg>
       </div>
       <br />
-      <h2>Thank you for your order, {{ checkoutService.getOrder.customerName }}</h2>
-    <p>Ref Id: {{ checkoutService.getOrder.customerReference }}</p>
-    <p>Total: {{ checkoutService.getOrder.total }}</p>
+      <h2>Thank you for your order, {{ checkoutService.checkoutData.name }}</h2>
+    <p>Order Id: {{ checkoutService.checkoutData.orderNo }}</p>
+    <p>Total: RM {{ checkoutService.checkoutData.total }}</p>
     <button mat-flat-button color="accent" class="m-t-24" (click)="backToHome()" >
         Back to Home
     </button>

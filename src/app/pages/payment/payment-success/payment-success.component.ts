@@ -13,7 +13,6 @@ export class PaymentSuccessComponent {
   ){}
 
   backToHome() {
-    this.checkoutService.setOrder(null);
     this.router.navigate(['/home']);
   }
 }
