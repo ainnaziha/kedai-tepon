@@ -2,10 +2,12 @@ import { Product } from "./product.model";
 
 export class Cart {
   total: string;
+  totalFormatted: string;
   items: CartItem[];
 
   constructor(data: any) {
-    this.total = data.total ?? 'RM 0.00';
+    this.total = data.total ?? '0.00';
+    this.totalFormatted = data.totalFormatted ?? 'RM 0.00';
     this.items = data.items == null ? [] : data.items.map((item) => new CartItem(item));
   }
 }
